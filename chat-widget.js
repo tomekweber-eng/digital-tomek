@@ -8,14 +8,14 @@ const chatBox = document.createElement("div");
 chatBox.className = "chat-box hidden";
 chatBox.innerHTML = `
   <div class="chat-header">Digital Tomek</div>
+  <div class="chat-messages" id="chat-messages">
+    <div class="message bot">Hi, I’m Digital Tomek – ask me anything about my experience, services or AI marketing insights.</div>
+  </div>
   <div class="chat-options">
     <button class="chat-option" data-msg="🧭 Powiedz mi o twoich doświadczeniach i projektach">🧭 Powiedz mi o twoich doświadczeniach i projektach</button>
     <button class="chat-option" data-msg="📄 Przedstaw mi twoje CV">📄 Przedstaw mi twoje CV</button>
     <button class="chat-option" data-msg="🛠️ Przedstaw mi zakres oferty">🛠️ Przedstaw mi zakres oferty</button>
     <button class="chat-option" data-msg="📑 Przedstaw mi warunki oferty">📑 Przedstaw mi warunki oferty</button>
-  </div>
-  <div class="chat-messages" id="chat-messages">
-    <div class="message bot">Hi, I’m Digital Tomek – ask me anything about my experience, services or AI marketing insights.</div>
   </div>
   <div class="chat-input">
     <input type="text" id="chat-input-field" placeholder="Type your message..." />
