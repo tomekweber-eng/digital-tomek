@@ -2,14 +2,18 @@
   position: fixed;
   bottom: 20px;
   right: 20px;
-  font-size: 28px;
-  padding: 10px;
+  width: 56px;
+  height: 56px;
+  font-size: 24px;
   border-radius: 50%;
   background-color: #6a1b9a;
   color: white;
   border: none;
   cursor: pointer;
-  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 .chat-box {
