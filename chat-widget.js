@@ -9,7 +9,7 @@ chatBox.className = "chat-box hidden";
 chatBox.innerHTML = `
   <div class="chat-header">Digital Tomek</div>
   <div class="chat-messages" id="chat-messages">
-    <div class="message bot">Hi, I’m Digital Tomek – ask me anything about my experience, services or AI marketing insights.</div>
+    <div class="message bot">Cześć, jestem Digital Tomek – zapytaj mnie o moje doświadczenie, projekty, ofertę interimową lub działania z AI.</div>
   </div>
   <div class="chat-options">
     <button class="chat-option" data-msg="🧭 Powiedz mi o twoich doświadczeniach i projektach">🧭 Powiedz mi o twoich doświadczeniach i projektach</button>
