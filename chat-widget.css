@@ -25,6 +25,10 @@ chatBox.innerHTML = `
     <a href="https://forms.gle/Hkk2qZidLYmdkoYBA" target="_blank">Leave feedback ↗</a>
   </div>
 `;
+.chat-box p {
+  font-size: 11px !important;
+  margin-bottom: 0.8rem;
+}
 
 chatContainer.appendChild(bubbleBtn);
 chatContainer.appendChild(chatBox);
