@@ -41,41 +41,10 @@ const optionButtons = chatBox.querySelectorAll(".chat-option");
 function appendMessage(sender, text) {
   const msg = document.createElement("div");
   msg.className = `message ${sender}`;
-
-  if (sender === "bot") {
-    const lines = text.split(/\n+/);
-    let ul = null;
-
-    lines.forEach(line => {
-      line = line.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>"); // pogrubienie
-
-      if (line.startsWith("- ")) {
-        if (!ul) {
-          ul = document.createElement("ul");
-          ul.style.paddingLeft = "20px";
-        }
-        const li = document.createElement("li");
-        li.innerHTML = line.substring(2);
-        ul.appendChild(li);
-      } else {
-        if (ul) {
-          msg.appendChild(ul);
-          ul = null;
-        }
-        const p = document.createElement("p");
-        p.innerHTML = line;
-        msg.appendChild(p);
-      }
-    });
-
-    if (ul) {
-      msg.appendChild(ul);
-    }
-
-  } else {
-    msg.textContent = text;
-  }
-
+  msg.innerHTML = text
+    .split('\n\n')
+    .map(paragraph => `<p>${paragraph.trim()}</p>`)
+    .join('');
   messagesContainer.appendChild(msg);
   messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
