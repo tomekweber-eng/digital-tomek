@@ -9,7 +9,7 @@ chatBox.className = "chat-box hidden";
 chatBox.innerHTML = `
   <div class="chat-header">Digital Tomek</div>
   <div class="chat-messages" id="chat-messages">
-    <div class="message bot">Cześć, jestem Digital Tomek – zapytaj mnie o moje doświadczenie, projekty, ofertę interimową lub działania z AI.</div>
+    <div class="message bot">Cześć, jestem Digital Tomek, czyli avatar Tomka – zapytaj mnie o moje doświadczenie, projekty, ofertę interimową lub działania z AI.</div>
   </div>
   <div class="chat-options">
     <button class="chat-option" data-msg="🧭 Powiedz mi o twoich doświadczeniach i projektach">🧭 Powiedz mi o twoich doświadczeniach i projektach</button>
@@ -49,14 +49,23 @@ function appendMessage(sender, text) {
   messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
 
+function appendTypingIndicator() {
+  const typing = document.createElement("div");
+  typing.className = "message bot typing";
+  typing.id = "typing-indicator";
+  typing.innerHTML = `<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>`;
+  messagesContainer.appendChild(typing);
+  messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
+
+function removeTypingIndicator() {
+  const typing = document.getElementById("typing-indicator");
+  if (typing) typing.remove();
+}
+
 async function sendMessage(userInput) {
   appendMessage("user", userInput);
-
-  // ⏳ animacja typing
-  const typingMsg = document.createElement("div");
-  typingMsg.className = "message bot typing";
-  messagesContainer.appendChild(typingMsg);
-  messagesContainer.scrollTop = messagesContainer.scrollHeight;
+  appendTypingIndicator();
 
   try {
     const response = await fetch("https://digital-tomek.vercel.app/api/chat", {
@@ -65,21 +74,18 @@ async function sendMessage(userInput) {
       body: JSON.stringify({ message: userInput })
     });
     const data = await response.json();
-    messagesContainer.removeChild(typingMsg);
-    appendMessage("bot", data.reply || "Sorry, I couldn’t understand that.");
+    removeTypingIndicator();
+    appendMessage("bot", data.reply || "Przepraszam, nie zrozumiałem wiadomości.");
   } catch (e) {
-    messagesContainer.removeChild(typingMsg);
-    appendMessage("bot", "Sorry, I couldn’t reach the server.");
+    removeTypingIndicator();
+    appendMessage("bot", "Przepraszam, nie udało się połączyć z serwerem.");
   }
 }
 
 optionButtons.forEach(btn => {
   btn.addEventListener("click", async () => {
     const userInput = btn.getAttribute("data-msg");
-
-    // 🔥 Ukryj przyciski opcji po kliknięciu
     chatBox.querySelector(".chat-options").style.display = "none";
-
     sendMessage(userInput);
   });
 });
