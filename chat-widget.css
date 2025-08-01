@@ -1,162 +1,96 @@
-.chat-bubble-button {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  font-size: 28px;
-  padding: 10px;
-  border-radius: 50%;
-  background-color: #6a1b9a;
-  color: white;
-  border: none;
-  cursor: pointer;
-  z-index: 1000;
+const chatContainer = document.getElementById("chat-widget-container");
+
+const bubbleBtn = document.createElement("button");
+bubbleBtn.innerHTML = "💬";
+bubbleBtn.className = "chat-bubble-button";
+
+const chatBox = document.createElement("div");
+chatBox.className = "chat-box hidden";
+chatBox.innerHTML = `
+  <div class="chat-header">Digital Tomek</div>
+  <div class="chat-options">
+    <button class="chat-option" data-msg="🧭 Powiedz mi o twoich doświadczeniach i projektach">🧭 Powiedz mi o twoich doświadczeniach i projektach</button>
+    <button class="chat-option" data-msg="📄 Przedstaw mi twoje CV">📄 Przedstaw mi twoje CV</button>
+    <button class="chat-option" data-msg="🛠️ Przedstaw mi zakres oferty">🛠️ Przedstaw mi zakres oferty</button>
+    <button class="chat-option" data-msg="📑 Przedstaw mi warunki oferty">📑 Przedstaw mi warunki oferty</button>
+  </div>
+  <div class="chat-messages" id="chat-messages">
+    <div class="message bot">Hi, I’m Digital Tomek – ask me anything about my experience, services or AI marketing insights.</div>
+  </div>
+  <div class="chat-input">
+    <input type="text" id="chat-input-field" placeholder="Type your message..." />
+    <button id="chat-send">Send</button>
+  </div>
+  <div class="chat-footer">
+    <a href="https://forms.gle/Hkk2qZidLYmdkoYBA" target="_blank">Leave feedback ↗</a>
+  </div>
+`;
+
+chatContainer.appendChild(bubbleBtn);
+chatContainer.appendChild(chatBox);
+
+bubbleBtn.addEventListener("click", () => {
+  chatBox.classList.toggle("hidden");
+});
+
+const sendBtn = chatBox.querySelector("#chat-send");
+const inputField = chatBox.querySelector("#chat-input-field");
+const messagesContainer = chatBox.querySelector("#chat-messages");
+const optionButtons = chatBox.querySelectorAll(".chat-option");
+
+function appendMessage(sender, text) {
+  const msg = document.createElement("div");
+  msg.className = `message ${sender}`;
+  msg.textContent = text;
+  messagesContainer.appendChild(msg);
+  messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
 
-.chat-box {
-  position: fixed;
-  bottom: 80px;
-  right: 20px;
-  width: 320px;
-  max-height: 90vh;
-  font-size: 11px;
-  background: white;
-  border: 1px solid #ccc;
-  border-radius: 16px;
-  box-shadow: 0 0 12px rgba(0,0,0,0.2);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  z-index: 999;
-}
+optionButtons.forEach(btn => {
+  btn.addEventListener("click", async () => {
+    const userInput = btn.getAttribute("data-msg");
+    inputField.value = "";
+    appendMessage("bot", "...");
 
-.chat-box.hidden {
-  display: none;
-}
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: userInput })
+      });
+      const data = await response.json();
+      messagesContainer.lastChild.remove();
+      appendMessage("bot", data.reply || "Sorry, I couldn’t understand that.");
+    } catch (e) {
+      messagesContainer.lastChild.remove();
+      appendMessage("bot", "Sorry, I couldn’t reach the server.");
+    }
+  });
+});
 
-.chat-header {
-  background-color: #6a1b9a;
-  color: white;
-  padding: 10px;
-  font-weight: bold;
-  text-align: center;
-  border-radius: 16px 16px 0 0;
-}
+sendBtn.addEventListener("click", async () => {
+  const userInput = inputField.value.trim();
+  if (!userInput) return;
 
-.chat-messages {
-  padding: 10px;
-  flex-grow: 1;
-  overflow-y: auto;
-  background: #f7f7f7;
-}
+  appendMessage("user", userInput);
+  inputField.value = "";
+  appendMessage("bot", "...");
 
-.message {
-  font-size: 11px;
-  margin: 4px 0;
-  padding: 6px 8px;
-  border-radius: 8px;
-  line-height: 1.4;
-}
+  try {
+    const response = await fetch("/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: userInput })
+    });
+    const data = await response.json();
+    messagesContainer.lastChild.remove();
+    appendMessage("bot", data.reply || "Sorry, I couldn’t understand that.");
+  } catch (e) {
+    messagesContainer.lastChild.remove();
+    appendMessage("bot", "Sorry, I couldn’t reach the server.");
+  }
+});
 
-.message.user {
-  text-align: right;
-  background: #e0d7f5;
-}
-
-.message.bot {
-  text-align: left;
-  background: #f3f3f3;
-}
-
-/* Animacja typing */
-.message.bot.typing {
-  display: flex;
-  gap: 3px;
-  padding: 6px 8px;
-  border-radius: 8px;
-  background: #f3f3f3;
-}
-
-.message.bot.typing .dot {
-  font-size: 16px;
-  line-height: 1;
-  animation: blink 1.4s infinite ease-in-out;
-}
-
-.message.bot.typing .dot:nth-child(2) {
-  animation-delay: 0.2s;
-}
-
-.message.bot.typing .dot:nth-child(3) {
-  animation-delay: 0.4s;
-}
-
-@keyframes blink {
-  0%, 20% { opacity: 0; }
-  50% { opacity: 1; }
-  100% { opacity: 0; }
-}
-
-.chat-options {
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 4px;
-}
-
-.chat-option {
-  font-size: 11px;
-  background: #edd9fa;
-  border: none;
-  border-radius: 12px;
-  padding: 8px 10px;
-  cursor: pointer;
-  text-align: left;
-  font-weight: 500;
-  color: #4a0065;
-  transition: background 0.2s ease;
-}
-
-.chat-option:hover {
-  background: #dec5f0;
-}
-
-.chat-input {
-  display: flex;
-  gap: 6px;
-  border-top: 1px solid #ccc;
-  padding: 6px;
-  background: white;
-}
-
-.chat-input input {
-  flex-grow: 1;
-  padding: 10px;
-  font-size: 11px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  outline: none;
-}
-
-.chat-input button {
-  background: #6a1b9a;
-  color: white;
-  border: none;
-  padding: 10px 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 11px;
-}
-
-.chat-footer {
-  text-align: center;
-  font-size: 10px;
-  padding: 6px;
-  background: #fafafa;
-}
-
-.chat-footer a {
-  color: #6a1b9a;
-  text-decoration: underline;
-}
+inputField.addEventListener("keypress", function (e) {
+  if (e.key === "Enter") sendBtn.click();
+});
