@@ -68,6 +68,10 @@ async function sendMessage(userInput) {
 optionButtons.forEach(btn => {
   btn.addEventListener("click", async () => {
     const userInput = btn.getAttribute("data-msg");
+
+    // 🔥 Ukryj przyciski opcji po kliknięciu
+    chatBox.querySelector(".chat-options").style.display = "none";
+
     sendMessage(userInput);
   });
 });
