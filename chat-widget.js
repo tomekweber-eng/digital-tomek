@@ -43,9 +43,9 @@ function appendMessage(sender, text) {
 
 function showQuickMenu() {
   const options = [
-    "📌 Powiedz mi o Tomku",
-    "📁 Powiedz mi o jego dotychczasowych doświadczeniach i projektach",
-    "📄 Przedstaw mi jego CV",
+    "📌 Powiedz mi coś o sobie",
+    "📁 Powiedz mi o twoich doświadczeniach i projektach",
+    "📄 Przedstaw mi twoje CV",
     "🛠️ Przedstaw mi zakres oferty",
     "📃 Przedstaw mi warunki oferty"
   ];
