@@ -51,7 +51,7 @@ async function sendMessage(userInput) {
   appendMessage("bot", "...");
 
   try {
-    const response = await fetch("/api/chat", {
+    const response = await fetch("https://digital-tomek.vercel.app/api/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ message: userInput })
