@@ -1,65 +1,78 @@
-import fs from 'fs/promises';
-import path from 'path';
+import fs from "fs";
+import path from "path";
+import { OpenAI } from "openai";
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY
+});
+
+function detectLanguage(text) {
+  const polishChars = /[ąćęłńóśźż]/i;
+  return polishChars.test(text) ? "pl" : "en";
+}
+
+function loadKnowledgeFiles() {
+  const knowledgeDir = path.join(process.cwd(), "knowledge");
+  const files = fs.readdirSync(knowledgeDir);
+  let context = [];
+
+  files.forEach((file) => {
+    const filePath = path.join(knowledgeDir, file);
+    const data = JSON.parse(fs.readFileSync(filePath, "utf8"));
+    if (data.content) {
+      context.push(`${data.title}:\n${data.content}`);
+    } else if (data.style) {
+      context.push(`Style:\n${data.style}`);
+    } else if (data.persona) {
+      context.push(`Persona:\n${data.persona}`);
+    }
+  });
+
+  return context.join("\n\n");
+}
 
 export default async function handler(req, res) {
-  // 🔐 Dodajemy nagłówki CORS
-  res.setHeader("Access-Control-Allow-Origin", "https://tomaszweber.com");
-  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-
-  // 🔄 Obsługa zapytania OPTIONS (preflight request)
-  if (req.method === "OPTIONS") {
-    return res.status(200).end();
-  }
-
   if (req.method !== "POST") {
     return res.status(405).json({ message: "Only POST requests allowed" });
   }
 
   const { message } = req.body;
+  const lang = detectLanguage(message);
+  const calendly = "https://calendly.com/tomek-weber/30min";
+  const knowledge = loadKnowledgeFiles();
 
-  try {
-    const knowledgePath = path.join(process.cwd(), "api", "knowledge");
-    const personaData = JSON.parse(await fs.readFile(path.join(knowledgePath, "persona.json"), "utf-8"));
-    const styleData = JSON.parse(await fs.readFile(path.join(knowledgePath, "style.json"), "utf-8"));
+  const systemPrompt = `
+You are Digital Tomek – AI version of Tomasz Weber, a seasoned marketing and AI consultant.
+You ONLY answer questions about his experience, services, style, projects, and expertise.
 
-    const systemPrompt = `
-Jesteś Digital Tomkiem – cyfrowym asystentem Tomasza Webera.
+Respond in the language of the user (Polish or English).
 
-Twoim zadaniem jest odpowiadać tylko i wyłącznie na pytania dotyczące jego doświadczenia, projektów, umiejętności i oferty interim marketingowej, komunikacyjnej i AI.
+Always:
+- Keep the answers short but precise
+- Format key points with bullet points and **bold**
+- Highlight key phrases with 🔮 or use purple where markdown is supported
+- End with: "Want to chat live? Book here 👉 ${calendly}"
 
-Nie odpowiadaj na inne pytania – w takim przypadku napisz: "Jestem cyfrowym sobowtórem Tomasza Webera – mogę pomóc w tematach marketingu, AI, komunikacji i interim managementu".
+If you don’t know the answer, say so – don’t make it up.
 
----
-
-${personaData.persona}
-
----
-
-${styleData.style}
+Knowledge base:
+${knowledge}
 `;
 
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`
-      },
-      body: JSON.stringify({
-        model: "gpt-4o",
-        messages: [
-          { role: "system", content: systemPrompt },
-          { role: "user", content: message }
-        ],
-        temperature: 0.2
-      })
+  try {
+    const response = await openai.chat.completions.create({
+      model: "gpt-4o",
+      temperature: 0.3,
+      messages: [
+        { role: "system", content: systemPrompt },
+        { role: "user", content: message }
+      ]
     });
 
-    const data = await response.json();
-    const reply = data.choices?.[0]?.message?.content;
+    const reply = response.choices?.[0]?.message?.content;
     res.status(200).json({ reply });
   } catch (error) {
     console.error("API Error:", error);
-    res.status(500).json({ reply: "Wystąpił błąd po stronie serwera." });
+    res.status(500).json({ reply: "Server error – try again later." });
   }
 }
