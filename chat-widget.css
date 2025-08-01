@@ -129,3 +129,28 @@
   right: 20px;
   z-index: 999999; /* bardzo wysoki priorytet */
 }
+.message.typing {
+  background: #f3f3f3;
+  color: #888;
+  font-style: italic;
+  font-size: 12px;
+  width: fit-content;
+  padding: 6px 10px;
+  border-radius: 6px;
+  margin: 4px 0;
+  display: inline-block;
+}
+
+.typing::after {
+  content: "⠋";
+  animation: dots 1s steps(5, end) infinite;
+}
+
+@keyframes dots {
+  0%   { content: "⠋"; }
+  20%  { content: "⠙"; }
+  40%  { content: "⠹"; }
+  60%  { content: "⠸"; }
+  80%  { content: "⠼"; }
+  100% { content: "⠴"; }
+}
