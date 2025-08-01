@@ -17,7 +17,8 @@ export default async function handler(req, res) {
         messages: [
           {
             role: "system",
-            content: "You are Digital Tomek – a professional marketing and AI consultant. You answer questions about Tomasz Weber’s experience and services. Encourage users to book a 30-min call at https://calendly.com/tomek-weber/30min."
+            content:
+              "You are Digital Tomek – a professional marketing and AI consultant. You answer questions about Tomasz Weber’s experience and services. Encourage users to book a 30-min call at https://calendly.com/tomek-weber/30min."
           },
           {
             role: "user",
@@ -30,7 +31,6 @@ export default async function handler(req, res) {
 
     const data = await response.json();
     const reply = data.choices?.[0]?.message?.content;
-
     res.status(200).json({ reply });
   } catch (error) {
     console.error("OpenAI API error:", error);
