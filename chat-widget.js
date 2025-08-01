@@ -8,7 +8,15 @@ const chatBox = document.createElement("div");
 chatBox.className = "chat-box hidden";
 chatBox.innerHTML = `
   <div class="chat-header">Digital Tomek</div>
-  <div class="chat-messages" id="chat-messages"></div>
+  <div class="chat-options">
+    <button class="chat-option" data-msg="🧭 Powiedz mi o twoich doświadczeniach i projektach">🧭 Powiedz mi o twoich doświadczeniach i projektach</button>
+    <button class="chat-option" data-msg="📄 Przedstaw mi twoje CV">📄 Przedstaw mi twoje CV</button>
+    <button class="chat-option" data-msg="🛠️ Przedstaw mi zakres oferty">🛠️ Przedstaw mi zakres oferty</button>
+    <button class="chat-option" data-msg="📑 Przedstaw mi warunki oferty">📑 Przedstaw mi warunki oferty</button>
+  </div>
+  <div class="chat-messages" id="chat-messages">
+    <div class="message bot">Hi, I’m Digital Tomek – ask me anything about my experience, services or AI marketing insights.</div>
+  </div>
   <div class="chat-input">
     <input type="text" id="chat-input-field" placeholder="Type your message..." />
     <button id="chat-send">Send</button>
@@ -23,15 +31,12 @@ chatContainer.appendChild(chatBox);
 
 bubbleBtn.addEventListener("click", () => {
   chatBox.classList.toggle("hidden");
-  if (!chatBox.classList.contains("hidden") && messagesContainer.children.length === 0) {
-    appendMessage("bot", "Cześć, tu Digital Tomek 👋\n\nW czym mogę pomóc? Wybierz jedną z opcji poniżej:");
-    showQuickMenu();
-  }
 });
 
 const sendBtn = chatBox.querySelector("#chat-send");
 const inputField = chatBox.querySelector("#chat-input-field");
 const messagesContainer = chatBox.querySelector("#chat-messages");
+const optionButtons = chatBox.querySelectorAll(".chat-option");
 
 function appendMessage(sender, text) {
   const msg = document.createElement("div");
@@ -41,29 +46,27 @@ function appendMessage(sender, text) {
   messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
 
-function showQuickMenu() {
-  const options = [
-    "📌 Powiedz mi coś o sobie",
-    "📁 Powiedz mi o twoich doświadczeniach i projektach",
-    "📄 Przedstaw mi twoje CV",
-    "🛠️ Przedstaw mi zakres oferty",
-    "📃 Przedstaw mi warunki oferty"
-  ];
+optionButtons.forEach(btn => {
+  btn.addEventListener("click", async () => {
+    const userInput = btn.getAttribute("data-msg");
+    inputField.value = "";
+    appendMessage("bot", "...");
 
-  options.forEach((option) => {
-    const btn = document.createElement("button");
-    btn.className = "quick-option-button";
-    btn.textContent = option;
-    btn.onclick = () => {
-      appendMessage("user", option);
-      inputField.value = option;
-      sendBtn.click();
-    };
-    messagesContainer.appendChild(btn);
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: userInput })
+      });
+      const data = await response.json();
+      messagesContainer.lastChild.remove();
+      appendMessage("bot", data.reply || "Sorry, I couldn’t understand that.");
+    } catch (e) {
+      messagesContainer.lastChild.remove();
+      appendMessage("bot", "Sorry, I couldn’t reach the server.");
+    }
   });
-
-  messagesContainer.scrollTop = messagesContainer.scrollHeight;
-}
+});
 
 sendBtn.addEventListener("click", async () => {
   const userInput = inputField.value.trim();
