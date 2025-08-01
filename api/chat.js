@@ -2,14 +2,13 @@ import fs from 'fs/promises';
 import path from 'path';
 
 export default async function handler(req, res) {
-  // 🔐 CORS headers
-  res.setHeader("Access-Control-Allow-Origin", "https://tomaszweber.com");
-  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+  // 🔐 CORS headers – ustawione ZAWSZE, nawet dla preflight
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
-  // 🔄 Handle preflight request
   if (req.method === "OPTIONS") {
-    return res.status(200).end();
+    return res.status(200).end(); // Preflight działa poprawnie
   }
 
   if (req.method !== "POST") {
@@ -18,10 +17,11 @@ export default async function handler(req, res) {
 
   const { message } = req.body;
 
-try {
-  console.log("✅ Test API działa. Odebrano wiadomość:", message);
-  res.status(200).json({ reply: `Test działa! Twoja wiadomość to: "${message}"` });
-} catch (error) {
-  console.error("API Error:", error.message, error.stack);
-  res.status(500).json({ reply: "Wystąpił błąd po stronie serwera." });
+  try {
+    console.log("✅ Preflight OK, API działa. Odebrano wiadomość:", message);
+    res.status(200).json({ reply: `Test działa! Twoja wiadomość to: "${message}"` });
+  } catch (error) {
+    console.error("API Error:", error.message, error.stack);
+    res.status(500).json({ reply: "Wystąpił błąd po stronie serwera." });
+  }
 }
