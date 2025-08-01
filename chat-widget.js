@@ -41,7 +41,18 @@ const optionButtons = chatBox.querySelectorAll(".chat-option");
 function appendMessage(sender, text) {
   const msg = document.createElement("div");
   msg.className = `message ${sender}`;
-  msg.textContent = text;
+
+  if (sender === "bot") {
+    const paragraphs = text.split(/\n+/); // dzieli po jednej lub wielu liniach
+    paragraphs.forEach(p => {
+      const paragraph = document.createElement("p");
+      paragraph.innerHTML = p.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+      msg.appendChild(paragraph);
+    });
+  } else {
+    msg.textContent = text;
+  }
+
   messagesContainer.appendChild(msg);
   messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
