@@ -67,6 +67,35 @@
   background: #f3f3f3;
 }
 
+/* Animacja typing */
+.message.bot.typing {
+  display: flex;
+  gap: 3px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  background: #f3f3f3;
+}
+
+.message.bot.typing .dot {
+  font-size: 16px;
+  line-height: 1;
+  animation: blink 1.4s infinite ease-in-out;
+}
+
+.message.bot.typing .dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.message.bot.typing .dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes blink {
+  0%, 20% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
 .chat-options {
   padding: 10px;
   display: flex;
@@ -130,27 +159,4 @@
 .chat-footer a {
   color: #6a1b9a;
   text-decoration: underline;
-}
-
-.typing {
-  display: inline-block;
-  font-size: 18px;
-  line-height: 1;
-}
-
-.typing span {
-  animation: blink 1.4s infinite both;
-}
-
-.typing span:nth-child(2) {
-  animation-delay: 0.2s;
-}
-.typing span:nth-child(3) {
-  animation-delay: 0.4s;
-}
-
-@keyframes blink {
-  0%, 20% { opacity: 0; }
-  50% { opacity: 1; }
-  100% { opacity: 0; }
 }
