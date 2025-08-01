@@ -1,9 +1,14 @@
 {
-  "version": 2,
-  "builds": [
-    { "src": "api/chat.js", "use": "@vercel/node" }
-  ],
   "routes": [
-    { "src": "/api/chat", "dest": "api/chat.js" }
+    {
+      "src": "/api/chat",
+      "methods": ["OPTIONS", "POST"],
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type"
+      },
+      "dest": "/api/chat.js"
+    }
   ]
 }
