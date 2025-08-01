@@ -2,6 +2,16 @@ import fs from 'fs/promises';
 import path from 'path';
 
 export default async function handler(req, res) {
+  // 🔐 Dodajemy nagłówki CORS
+  res.setHeader("Access-Control-Allow-Origin", "https://tomaszweber.com");
+  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+  // 🔄 Obsługa zapytania OPTIONS (preflight request)
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
+
   if (req.method !== "POST") {
     return res.status(405).json({ message: "Only POST requests allowed" });
   }
@@ -9,16 +19,10 @@ export default async function handler(req, res) {
   const { message } = req.body;
 
   try {
-    // Ścieżki do plików z wiedzą
     const knowledgePath = path.join(process.cwd(), "api", "knowledge");
-    const personaPath = path.join(knowledgePath, "persona.json");
-    const stylePath = path.join(knowledgePath, "style.json");
+    const personaData = JSON.parse(await fs.readFile(path.join(knowledgePath, "persona.json"), "utf-8"));
+    const styleData = JSON.parse(await fs.readFile(path.join(knowledgePath, "style.json"), "utf-8"));
 
-    // Wczytanie danych z plików
-    const personaData = JSON.parse(await fs.readFile(personaPath, "utf-8"));
-    const styleData = JSON.parse(await fs.readFile(stylePath, "utf-8"));
-
-    // Utworzenie system promptu
     const systemPrompt = `
 Jesteś Digital Tomkiem – cyfrowym asystentem Tomasza Webera.
 
@@ -35,7 +39,6 @@ ${personaData.persona}
 ${styleData.style}
 `;
 
-    // Zapytanie do OpenAI
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -45,14 +48,8 @@ ${styleData.style}
       body: JSON.stringify({
         model: "gpt-4o",
         messages: [
-          {
-            role: "system",
-            content: systemPrompt
-          },
-          {
-            role: "user",
-            content: message
-          }
+          { role: "system", content: systemPrompt },
+          { role: "user", content: message }
         ],
         temperature: 0.2
       })
