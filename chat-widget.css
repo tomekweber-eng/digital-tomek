@@ -119,3 +119,9 @@
 .chat-option:hover {
   background-color: #e4d2ff;
 }
+#chat-widget-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999999; /* bardzo wysoki priorytet */
+}
