@@ -2,7 +2,7 @@
   position: fixed;
   bottom: 20px;
   right: 20px;
-  font-size: 32px;
+  font-size: 26px;
   padding: 10px;
   border-radius: 50%;
   background-color: #6a1b9a;
@@ -51,7 +51,7 @@
   margin: 4px 0;
   padding: 6px;
   border-radius: 6px;
-  font-size: 13px;
+  font-size: 11px;
 }
 
 .message.bot {
@@ -60,7 +60,7 @@
   margin: 4px 0;
   padding: 6px;
   border-radius: 6px;
-  font-size: 13px;
+  font-size: 11px;
 }
 
 .message p {
@@ -81,7 +81,7 @@
   flex-grow: 1;
   padding: 10px;
   border: none;
-  font-size: 13px;
+  font-size: 11px;
 }
 
 .chat-input button {
@@ -90,11 +90,11 @@
   border: none;
   padding: 10px;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 11px;
 }
 
 .chat-footer {
   text-align: center;
   padding: 6px;
-  font-size: 12px;
+  font-size: 8px;
 }
