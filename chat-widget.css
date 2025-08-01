@@ -98,3 +98,13 @@
   padding: 6px;
   font-size: 8px;
 }
+.message.bot p,
+.message.bot ul {
+  margin: 0 0 10px 0;
+  line-height: 1.5;
+  font-size: 12px;
+}
+
+.message.bot li {
+  margin-bottom: 4px;
+}
