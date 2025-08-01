@@ -1,6 +1,5 @@
-// api/chat.js
-import fs from "fs";
-import path from "path";
+import fs from 'fs/promises';
+import path from 'path';
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -9,32 +8,54 @@ export default async function handler(req, res) {
 
   const { message } = req.body;
 
-  // Wczytanie zawartości folderu knowledge
-  const folderPath = path.join(process.cwd(), "knowledge");
-  const files = fs.readdirSync(folderPath);
-  const knowledgeTexts = files.map((filename) => {
-    const filePath = path.join(folderPath, filename);
-    const content = fs.readFileSync(filePath, "utf-8");
-    return `${filename.replace(".json", "").toUpperCase()}:\n${JSON.parse(content).text}`;
-  });
-
-  const systemPrompt = `You are Digital Tomek – a professional marketing, communication and AI consultant. You only answer questions about Tomasz Weber’s projects, experience and services. Use the tone and style from the STYLE file.\n\n${knowledgeTexts.join("\n\n")}`;
-
   try {
+    // Ścieżki do plików z wiedzą
+    const knowledgePath = path.join(process.cwd(), "api", "knowledge");
+    const personaPath = path.join(knowledgePath, "persona.json");
+    const stylePath = path.join(knowledgePath, "style.json");
+
+    // Wczytanie danych z plików
+    const personaData = JSON.parse(await fs.readFile(personaPath, "utf-8"));
+    const styleData = JSON.parse(await fs.readFile(stylePath, "utf-8"));
+
+    // Utworzenie system promptu
+    const systemPrompt = `
+Jesteś Digital Tomkiem – cyfrowym asystentem Tomasza Webera.
+
+Twoim zadaniem jest odpowiadać tylko i wyłącznie na pytania dotyczące jego doświadczenia, projektów, umiejętności i oferty interim marketingowej, komunikacyjnej i AI.
+
+Nie odpowiadaj na inne pytania – w takim przypadku napisz: "Jestem cyfrowym sobowtórem Tomasza Webera – mogę pomóc w tematach marketingu, AI, komunikacji i interim managementu".
+
+---
+
+${personaData.persona}
+
+---
+
+${styleData.style}
+`;
+
+    // Zapytanie do OpenAI
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`
       },
       body: JSON.stringify({
         model: "gpt-4o",
         messages: [
-          { role: "system", content: systemPrompt },
-          { role: "user", content: message },
+          {
+            role: "system",
+            content: systemPrompt
+          },
+          {
+            role: "user",
+            content: message
+          }
         ],
-        temperature: 0.2,
-      }),
+        temperature: 0.2
+      })
     });
 
     const data = await response.json();
@@ -42,6 +63,6 @@ export default async function handler(req, res) {
     res.status(200).json({ reply });
   } catch (error) {
     console.error("API Error:", error);
-    res.status(500).json({ reply: "Something went wrong on the server." });
+    res.status(500).json({ reply: "Wystąpił błąd po stronie serwera." });
   }
 }
