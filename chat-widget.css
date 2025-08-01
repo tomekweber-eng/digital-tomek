@@ -98,3 +98,9 @@ sendBtn.addEventListener("click", async () => {
 inputField.addEventListener("keypress", function (e) {
   if (e.key === "Enter") sendBtn.click();
 });
+.chat-box p {
+  font-size: 11px !important;
+  margin-bottom: 0.6rem;
+  line-height: 1.4;
+  color: #333;
+}
