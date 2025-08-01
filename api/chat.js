@@ -19,6 +19,7 @@ export default async function handler(req, res) {
   const { message } = req.body;
 
   try {
+    // ✅ poprawiona ścieżka
     const knowledgePath = path.join(process.cwd(), "knowledge");
 
     const personaData = JSON.parse(await fs.readFile(path.join(knowledgePath, "persona.json"), "utf-8"));
