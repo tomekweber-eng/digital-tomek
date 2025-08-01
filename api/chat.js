@@ -62,7 +62,7 @@ ${styleData.style}
 
     res.status(200).json({ reply });
   } catch (error) {
-    console.error("API Error:", error);
+    console.error("API Error:", error.message, error.stack);
     res.status(500).json({ reply: "Wystąpił błąd po stronie serwera." });
   }
 }
