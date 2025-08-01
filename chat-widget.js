@@ -46,34 +46,8 @@ function appendMessage(sender, text) {
   messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
 
-optionButtons.forEach(btn => {
-  btn.addEventListener("click", async () => {
-    const userInput = btn.getAttribute("data-msg");
-    inputField.value = "";
-    appendMessage("bot", "...");
-
-    try {
-      const response = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: userInput })
-      });
-      const data = await response.json();
-      messagesContainer.lastChild.remove();
-      appendMessage("bot", data.reply || "Sorry, I couldn’t understand that.");
-    } catch (e) {
-      messagesContainer.lastChild.remove();
-      appendMessage("bot", "Sorry, I couldn’t reach the server.");
-    }
-  });
-});
-
-sendBtn.addEventListener("click", async () => {
-  const userInput = inputField.value.trim();
-  if (!userInput) return;
-
+async function sendMessage(userInput) {
   appendMessage("user", userInput);
-  inputField.value = "";
   appendMessage("bot", "...");
 
   try {
@@ -89,6 +63,20 @@ sendBtn.addEventListener("click", async () => {
     messagesContainer.lastChild.remove();
     appendMessage("bot", "Sorry, I couldn’t reach the server.");
   }
+}
+
+optionButtons.forEach(btn => {
+  btn.addEventListener("click", async () => {
+    const userInput = btn.getAttribute("data-msg");
+    sendMessage(userInput);
+  });
+});
+
+sendBtn.addEventListener("click", async () => {
+  const userInput = inputField.value.trim();
+  if (!userInput) return;
+  inputField.value = "";
+  sendMessage(userInput);
 });
 
 inputField.addEventListener("keypress", function (e) {
