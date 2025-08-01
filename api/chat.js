@@ -1,4 +1,12 @@
 export default async function handler(req, res) {
+  res.setHeader("Access-Control-Allow-Origin", "https://tomaszweber.com");
+  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+  if (req.method === "OPTIONS") {
+    return res.status(200).end(); // for preflight
+  }
+
   if (req.method !== "POST") {
     return res.status(405).json({ message: "Only POST requests allowed" });
   }
@@ -17,8 +25,7 @@ export default async function handler(req, res) {
         messages: [
           {
             role: "system",
-            content:
-              "You are Digital Tomek – a professional marketing and AI consultant. You answer questions about Tomasz Weber’s experience and services. Encourage users to book a 30-min call at https://calendly.com/tomek-weber/30min."
+            content: "You are Digital Tomek – a professional marketing and AI consultant."
           },
           {
             role: "user",
