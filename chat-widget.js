@@ -51,7 +51,12 @@ function appendMessage(sender, text) {
 
 async function sendMessage(userInput) {
   appendMessage("user", userInput);
-  appendMessage("bot", "...");
+
+  // ⏳ animacja typing
+  const typingMsg = document.createElement("div");
+  typingMsg.className = "message bot typing";
+  messagesContainer.appendChild(typingMsg);
+  messagesContainer.scrollTop = messagesContainer.scrollHeight;
 
   try {
     const response = await fetch("https://digital-tomek.vercel.app/api/chat", {
@@ -60,10 +65,10 @@ async function sendMessage(userInput) {
       body: JSON.stringify({ message: userInput })
     });
     const data = await response.json();
-    messagesContainer.lastChild.remove();
+    messagesContainer.removeChild(typingMsg);
     appendMessage("bot", data.reply || "Sorry, I couldn’t understand that.");
   } catch (e) {
-    messagesContainer.lastChild.remove();
+    messagesContainer.removeChild(typingMsg);
     appendMessage("bot", "Sorry, I couldn’t reach the server.");
   }
 }
