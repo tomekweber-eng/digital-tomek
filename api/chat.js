@@ -14,15 +14,16 @@ export default async function handler(req, res) {
 
   // Simple language detection
   function detectLanguage(text) {
-    const pl = /[ąćęłńóśźż]/i;
-    const fr = /(je|le|la|les|est|vous|tu|bonjour)/i;
-    const de = /(der|die|das|und|ich|nicht|mit|ist)/i;
-    const es = /(hola|que|como|esta|usted|gracias|por)/i;
-    if (pl.test(text)) return "pl";
-    if (fr.test(text)) return "fr";
-    if (de.test(text)) return "de";
-    if (es.test(text)) return "es";
-    return "en";
+  const pl = /[ąćęłńóśźż]/i;
+  const fr = /\b(je|le|la|les|est|vous|tu|bonjour)\b/i;
+  const de = /\b(der|die|das|und|ich|nicht|mit|ist)\b/i;
+  const es = /\b(hola|que|como|esta|usted|gracias|por)\b/i;
+
+  if (pl.test(text)) return "pl";
+  if (fr.test(text)) return "fr";
+  if (de.test(text)) return "de";
+  if (es.test(text)) return "es";
+  return "en";
   }
 
   const lang = detectLanguage(message);
