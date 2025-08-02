@@ -41,7 +41,12 @@
   text-align: center;
   border-radius: 16px 16px 0 0;
 }
-
+#chat-widget-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
 .chat-messages {
   padding: 10px;
   flex-grow: 1;
