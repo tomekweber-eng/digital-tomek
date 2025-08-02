@@ -2,37 +2,45 @@
   position: fixed !important;
   bottom: 20px !important;
   right: 20px !important;
+  width: 60px !important;
+  height: 60px !important;
+  font-size: 24px !important;
+  padding: 10px !important;
+  border-radius: 50% !important;
+  background-color: #6a1b9a !important;
+  color: white !important;
+  border: none !important;
+  cursor: pointer !important;
   z-index: 9999 !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2) !important;
   display: flex !important;
-  font-size: 24px;
-  padding: 10px;
-  border-radius: 50%;
-  background-color: #6a1b9a;
-  color: white;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  align-items: center !important;
+  justify-content: center !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
 .chat-box {
-  position: fixed;
-  bottom: 80px;
-  right: 20px;
-  width: 360px;
-  max-height: 80vh;
-  font-size: 11px;
-  background: white;
-  border: 1px solid #ccc;
-  border-radius: 16px;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  z-index: 999;
+  position: fixed !important;
+  bottom: 90px !important;
+  right: 20px !important;
+  width: 360px !important;
+  max-height: 80vh !important;
+  font-size: 11px !important;
+  background: white !important;
+  border: 1px solid #ccc !important;
+  border-radius: 16px !important;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  z-index: 9998 !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
 .chat-box.hidden {
-  display: none;
+  display: none !important;
 }
 
 .chat-header {
