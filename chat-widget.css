@@ -30,7 +30,7 @@
 }
 
 .chat-box.hidden {
-  display: none;
+  display: none !important;
 }
 
 .chat-header {
