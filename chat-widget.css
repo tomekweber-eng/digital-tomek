@@ -2,7 +2,7 @@
   position: fixed;
   bottom: 20px;
   right: 20px;
-  font-size: 28px;
+  font-size: 24px;
   padding: 10px;
   border-radius: 50%;
   background-color: #6a1b9a;
@@ -16,13 +16,13 @@
   position: fixed;
   bottom: 80px;
   right: 20px;
-  width: 320px;
-  max-height: 80vh;
+  width: 360px;
+  max-height: 90vh;
   font-size: 11px;
   background: white;
   border: 1px solid #ccc;
   border-radius: 16px;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 12px rgba(0,0,0,0.2);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -30,7 +30,7 @@
 }
 
 .chat-box.hidden {
-  display: none !important;
+  display: none;
 }
 
 .chat-header {
@@ -40,19 +40,14 @@
   font-weight: bold;
   text-align: center;
   border-radius: 16px 16px 0 0;
+  font-size: 13px;
 }
-#chat-widget-container {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 1000;
-}
+
 .chat-messages {
   padding: 10px;
   flex-grow: 1;
   overflow-y: auto;
   background: #f7f7f7;
-  font-size: 11px;
 }
 
 .message {
@@ -140,28 +135,18 @@
 
 .typing {
   display: inline-block;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1;
-  padding: 4px 6px;
-  background: #f3f3f3;
-  border-radius: 8px;
 }
 
-.typing .dot {
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  margin: 0 1px;
-  background-color: #666;
-  border-radius: 50%;
+.typing span {
   animation: blink 1.4s infinite both;
 }
 
-.typing .dot:nth-child(2) {
+.typing span:nth-child(2) {
   animation-delay: 0.2s;
 }
-
-.typing .dot:nth-child(3) {
+.typing span:nth-child(3) {
   animation-delay: 0.4s;
 }
 
