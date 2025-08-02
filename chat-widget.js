@@ -1,19 +1,20 @@
+// === chat-widget.js ===
 document.addEventListener("DOMContentLoaded", function () {
-  const chatContainer = document.getElementById("chat-widget-container");
-
+  // === Create bubble button ===
   const bubbleBtn = document.createElement("button");
   bubbleBtn.innerHTML = "💬";
   bubbleBtn.className = "chat-bubble-button";
 
+  // === Create chat box ===
   const chatBox = document.createElement("div");
   chatBox.className = "chat-box hidden";
   chatBox.innerHTML = `
     <div class="chat-header">Digital Tomek</div>
     <div class="chat-options">
-      <button class="chat-option" data-msg="ED} Tell me about your experience and projects">ED} Tell me about your experience and projects</button>
-      <button class="chat-option" data-msg="C4} Show me your CV">C4} Show me your CV</button>
-      <button class="chat-option" data-msg="E0}️ Show me your scope of services">E0}️ Show me your scope of services</button>
-      <button class="chat-option" data-msg="D1} Show me your terms of engagement">D1} Show me your terms of engagement</button>
+      <button class="chat-option" data-msg="Tell me about your experience and projects">🗺️ Tell me about your experience and projects</button>
+      <button class="chat-option" data-msg="Show me your CV">📄 Show me your CV</button>
+      <button class="chat-option" data-msg="Show me your scope of services">🛠️ Show me your scope of services</button>
+      <button class="chat-option" data-msg="Show me your terms of engagement">📋 Show me your terms of engagement</button>
     </div>
     <div class="chat-messages" id="chat-messages">
       <div class="message bot">Hi, I'm Digital Tomek – ask me anything about my experience, services or AI marketing insights.</div>
@@ -23,13 +24,15 @@ document.addEventListener("DOMContentLoaded", function () {
       <button id="chat-send">Send</button>
     </div>
     <div class="chat-footer">
-      <a href="https://forms.gle/Hkk2qZidLYmdkoYBA" target="_blank">Leave feedback ↗</a>
+      <a href="https://calendly.com/tomek-weber/30min" target="_blank">Book a meeting ↗</a>
     </div>
   `;
 
-  chatContainer.appendChild(bubbleBtn);
-  chatContainer.appendChild(chatBox);
+  // === Add to body ===
+  document.body.appendChild(bubbleBtn);
+  document.body.appendChild(chatBox);
 
+  // === Toggle chat ===
   bubbleBtn.addEventListener("click", () => {
     chatBox.classList.toggle("hidden");
   });
@@ -44,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
     msg.className = `message ${sender}`;
     msg.innerHTML = text
       .split('\n\n')
-      .map(paragraph => `<p>${paragraph.trim()}</p>`)
+      .map(p => `<p>${p.trim()}</p>`)
       .join('');
     messagesContainer.appendChild(msg);
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
