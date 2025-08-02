@@ -1,9 +1,12 @@
 // === chat-widget.js ===
 document.addEventListener("DOMContentLoaded", function () {
+  console.log("Digital Tomek chat widget loading...");
+  
   // === Create bubble button ===
   const bubbleBtn = document.createElement("button");
   bubbleBtn.innerHTML = "💬";
   bubbleBtn.className = "chat-bubble-button";
+  console.log("Chat bubble button created");
 
   // === Create chat box ===
   const chatBox = document.createElement("div");
@@ -27,13 +30,16 @@ document.addEventListener("DOMContentLoaded", function () {
       <a href="https://calendly.com/tomek-weber/30min" target="_blank">Book a meeting ↗</a>
     </div>
   `;
+  console.log("Chat box created");
 
   // === Add to body ===
   document.body.appendChild(bubbleBtn);
   document.body.appendChild(chatBox);
+  console.log("Chat widget elements added to DOM");
 
   // === Toggle chat ===
   bubbleBtn.addEventListener("click", () => {
+    console.log("Chat bubble clicked");
     chatBox.classList.toggle("hidden");
   });
 
@@ -77,12 +83,18 @@ document.addEventListener("DOMContentLoaded", function () {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: userInput })
       });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
       const data = await response.json();
       removeTypingIndicator();
-      appendMessage("bot", data.reply || "Sorry, I couldn’t understand that.");
+      appendMessage("bot", data.reply || "Sorry, I couldn't understand that.");
     } catch (e) {
+      console.error("API Error:", e);
       removeTypingIndicator();
-      appendMessage("bot", "Sorry, I couldn’t reach the server.");
+      appendMessage("bot", "Sorry, I couldn't reach the server at the moment. Please try again later.");
     }
   }
 
@@ -90,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
     btn.addEventListener("click", async () => {
       const userInput = btn.getAttribute("data-msg");
       chatBox.querySelector(".chat-options").style.display = "none";
-      sendMessage(userInput);
+      await sendMessage(userInput);
     });
   });
 
@@ -98,10 +110,15 @@ document.addEventListener("DOMContentLoaded", function () {
     const userInput = inputField.value.trim();
     if (!userInput) return;
     inputField.value = "";
-    sendMessage(userInput);
+    await sendMessage(userInput);
   });
 
   inputField.addEventListener("keypress", function (e) {
-    if (e.key === "Enter") sendBtn.click();
+    if (e.key === "Enter") {
+      e.preventDefault();
+      sendBtn.click();
+    }
   });
+  
+  console.log("Digital Tomek chat widget loaded successfully!");
 });
