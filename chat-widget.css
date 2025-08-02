@@ -10,6 +10,7 @@
   border: none;
   cursor: pointer;
   z-index: 1000;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
 .chat-box {
@@ -17,12 +18,12 @@
   bottom: 80px;
   right: 20px;
   width: 360px;
-  max-height: 90vh;
+  max-height: 80vh;
   font-size: 11px;
   background: white;
   border: 1px solid #ccc;
   border-radius: 16px;
-  box-shadow: 0 0 12px rgba(0,0,0,0.2);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -41,6 +42,31 @@
   text-align: center;
   border-radius: 16px 16px 0 0;
   font-size: 13px;
+}
+
+.chat-options {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.chat-option {
+  font-size: 11px;
+  background: #edd9fa;
+  border: none;
+  border-radius: 12px;
+  padding: 8px 10px;
+  cursor: pointer;
+  text-align: left;
+  font-weight: 500;
+  color: #4a0065;
+  transition: background 0.2s ease;
+}
+
+.chat-option:hover {
+  background: #dec5f0;
 }
 
 .chat-messages {
@@ -68,29 +94,10 @@
   background: #f3f3f3;
 }
 
-.chat-options {
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 4px;
-}
-
-.chat-option {
-  font-size: 11px;
-  background: #edd9fa;
-  border: none;
-  border-radius: 12px;
-  padding: 8px 10px;
-  cursor: pointer;
-  text-align: left;
-  font-weight: 500;
-  color: #4a0065;
-  transition: background 0.2s ease;
-}
-
-.chat-option:hover {
-  background: #dec5f0;
+.message.bot.typing {
+  font-size: 16px;
+  background: transparent;
+  box-shadow: none;
 }
 
 .chat-input {
@@ -131,15 +138,20 @@
 .chat-footer a {
   color: #6a1b9a;
   text-decoration: underline;
+  font-weight: 500;
 }
 
+/* Typing animation */
 .typing {
-  display: inline-block;
-  font-size: 18px;
-  line-height: 1;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding-left: 8px;
 }
 
 .typing span {
+  display: inline-block;
+  font-size: 18px;
   animation: blink 1.4s infinite both;
 }
 
