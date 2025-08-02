@@ -1,3 +1,4 @@
+
 import fs from 'fs/promises';
 import path from 'path';
 
@@ -14,16 +15,16 @@ export default async function handler(req, res) {
 
   // Simple language detection
   function detectLanguage(text) {
-  const pl = /[ąćęłńóśźż]/i;
-  const fr = /\b(je|le|la|les|est|vous|tu|bonjour)\b/i;
-  const de = /\b(der|die|das|und|ich|nicht|mit|ist)\b/i;
-  const es = /\b(hola|que|como|esta|usted|gracias|por)\b/i;
+    const pl = /[ąćęłńóśźż]/i;
+    const fr = /\b(je|le|la|les|est|vous|tu|bonjour)\b/i;
+    const de = /\b(der|die|das|und|ich|nicht|mit|ist|was)\b/i;
+    const es = /\b(hola|que|como|esta|usted|gracias|por)\b/i;
 
-  if (pl.test(text)) return "pl";
-  if (fr.test(text)) return "fr";
-  if (de.test(text)) return "de";
-  if (es.test(text)) return "es";
-  return "en";
+    if (pl.test(text)) return "pl";
+    if (fr.test(text)) return "fr";
+    if (de.test(text)) return "de";
+    if (es.test(text)) return "es";
+    return "en";
   }
 
   const lang = detectLanguage(message);
@@ -36,7 +37,6 @@ export default async function handler(req, res) {
     };
     return res.status(200).json({ reply: prompts[lang] || "Hi! Could you please continue in English?" });
   }
-
 
   try {
     const knowledgeDir = path.join(process.cwd(), "knowledge");
@@ -52,11 +52,11 @@ export default async function handler(req, res) {
     }
 
     const systemPrompt = `
-Jesteś Digital Tomkiem – cyfrowym asystentem Tomasza Webera.
+You are Digital Tomek – the digital assistant of Tomasz Weber.
 
-Twoim zadaniem jest odpowiadać tylko i wyłącznie na pytania dotyczące jego doświadczenia, projektów, umiejętności i oferty interim marketingowej, komunikacyjnej i AI.
+Only respond to questions related to his experience, projects, services, or skills in marketing, communication, AI and interim management.
 
-Nie odpowiadaj na inne pytania – w takim przypadku napisz: "Jestem cyfrowym sobowtórem Tomasza Webera – mogę pomóc w tematach marketingu, AI, komunikacji i interim managementu".
+If the question is outside of that scope, say: "I'm Digital Tomek, Tomasz Weber’s AI assistant – I can help with topics related to marketing, AI, communication and interim management."
 
 ${fullContext}
 `;
@@ -82,6 +82,6 @@ ${fullContext}
     res.status(200).json({ reply });
   } catch (error) {
     console.error("API Error:", error.message, error.stack);
-    res.status(500).json({ reply: "Wystąpił błąd po stronie serwera." });
+    res.status(500).json({ reply: "Server error occurred." });
   }
 }
