@@ -4,10 +4,415 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Digital Tomek</title>
-    <link rel="stylesheet" href="chat-widget.css" />
+    <style>
+      /* Chat Widget CSS - inline to avoid loading conflicts */
+      .digital-tomek-chat-bubble {
+        position: fixed !important;
+        bottom: 20px !important;
+        right: 20px !important;
+        width: 60px !important;
+        height: 60px !important;
+        font-size: 24px !important;
+        padding: 0 !important;
+        border-radius: 50% !important;
+        background-color: #6a1b9a !important;
+        color: white !important;
+        border: none !important;
+        cursor: pointer !important;
+        z-index: 999999 !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        transform: none !important;
+        margin: 0 !important;
+        outline: none !important;
+        font-family: system-ui, -apple-system, sans-serif !important;
+      }
+
+      .digital-tomek-chat-bubble:hover {
+        background-color: #7b1fa2 !important;
+        transform: scale(1.05) !important;
+        transition: all 0.2s ease !important;
+      }
+
+      .digital-tomek-chat-box {
+        position: fixed !important;
+        bottom: 90px !important;
+        right: 20px !important;
+        width: 360px !important;
+        max-height: 80vh !important;
+        font-size: 11px !important;
+        background: white !important;
+        border: 1px solid #ccc !important;
+        border-radius: 16px !important;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        overflow: hidden !important;
+        z-index: 999998 !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        transform: none !important;
+        margin: 0 !important;
+        font-family: system-ui, -apple-system, sans-serif !important;
+      }
+
+      .digital-tomek-chat-box.hidden {
+        display: none !important;
+      }
+
+      .digital-tomek-chat-header {
+        background-color: #6a1b9a !important;
+        color: white !important;
+        padding: 12px !important;
+        font-weight: bold !important;
+        text-align: center !important;
+        border-radius: 16px 16px 0 0 !important;
+        font-size: 14px !important;
+        margin: 0 !important;
+      }
+
+      .digital-tomek-chat-options {
+        padding: 10px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 8px !important;
+        margin-bottom: 4px !important;
+        background: white !important;
+      }
+
+      .digital-tomek-chat-option {
+        font-size: 11px !important;
+        background: #edd9fa !important;
+        border: none !important;
+        border-radius: 12px !important;
+        padding: 10px 12px !important;
+        cursor: pointer !important;
+        text-align: left !important;
+        font-weight: 500 !important;
+        color: #4a0065 !important;
+        transition: background 0.2s ease !important;
+        margin: 0 !important;
+        font-family: inherit !important;
+        line-height: 1.3 !important;
+      }
+
+      .digital-tomek-chat-option:hover {
+        background: #dec5f0 !important;
+      }
+
+      .digital-tomek-chat-messages {
+        padding: 10px !important;
+        flex-grow: 1 !important;
+        overflow-y: auto !important;
+        background: #f8f9fa !important;
+        min-height: 200px !important;
+        max-height: 300px !important;
+        margin: 0 !important;
+      }
+
+      .digital-tomek-message {
+        font-size: 11px !important;
+        margin: 6px 0 !important;
+        padding: 8px 10px !important;
+        border-radius: 12px !important;
+        line-height: 1.4 !important;
+        max-width: 85% !important;
+        word-wrap: break-word !important;
+        font-family: inherit !important;
+      }
+
+      .digital-tomek-message.user {
+        background: #6a1b9a !important;
+        color: white !important;
+        margin-left: auto !important;
+        margin-right: 0 !important;
+        text-align: right !important;
+      }
+
+      .digital-tomek-message.bot {
+        background: white !important;
+        color: #333 !important;
+        border: 1px solid #e0e0e0 !important;
+        margin-right: auto !important;
+        margin-left: 0 !important;
+      }
+
+      .digital-tomek-message.bot.typing {
+        background: transparent !important;
+        border: none !important;
+        padding: 4px 10px !important;
+      }
+
+      .digital-tomek-chat-input {
+        display: flex !important;
+        gap: 8px !important;
+        border-top: 1px solid #e0e0e0 !important;
+        padding: 10px !important;
+        background: white !important;
+        margin: 0 !important;
+      }
+
+      .digital-tomek-chat-input input {
+        flex-grow: 1 !important;
+        padding: 10px 12px !important;
+        font-size: 12px !important;
+        border: 1px solid #ccc !important;
+        border-radius: 20px !important;
+        outline: none !important;
+        margin: 0 !important;
+        font-family: inherit !important;
+      }
+
+      .digital-tomek-chat-input input:focus {
+        border-color: #6a1b9a !important;
+        box-shadow: 0 0 0 2px rgba(106, 27, 154, 0.1) !important;
+      }
+
+      .digital-tomek-chat-input button {
+        background: #6a1b9a !important;
+        color: white !important;
+        border: none !important;
+        padding: 10px 16px !important;
+        border-radius: 20px !important;
+        cursor: pointer !important;
+        font-weight: bold !important;
+        font-size: 11px !important;
+        margin: 0 !important;
+        font-family: inherit !important;
+        transition: background 0.2s ease !important;
+      }
+
+      .digital-tomek-chat-input button:hover {
+        background: #7b1fa2 !important;
+      }
+
+      .digital-tomek-chat-footer {
+        text-align: center !important;
+        font-size: 10px !important;
+        padding: 8px !important;
+        background: #f8f9fa !important;
+        margin: 0 !important;
+        border-radius: 0 0 16px 16px !important;
+      }
+
+      .digital-tomek-chat-footer a {
+        color: #6a1b9a !important;
+        text-decoration: none !important;
+        font-weight: 500 !important;
+        padding: 4px 8px !important;
+        border-radius: 12px !important;
+        transition: background 0.2s ease !important;
+      }
+
+      .digital-tomek-chat-footer a:hover {
+        background: #edd9fa !important;
+        text-decoration: none !important;
+      }
+
+      /* Typing animation */
+      .digital-tomek-typing {
+        display: flex !important;
+        align-items: center !important;
+        gap: 3px !important;
+        padding-left: 8px !important;
+      }
+
+      .digital-tomek-typing span {
+        display: inline-block !important;
+        font-size: 18px !important;
+        animation: digital-tomek-blink 1.4s infinite both !important;
+        color: #6a1b9a !important;
+      }
+
+      .digital-tomek-typing span:nth-child(2) {
+        animation-delay: 0.2s !important;
+      }
+      .digital-tomek-typing span:nth-child(3) {
+        animation-delay: 0.4s !important;
+      }
+
+      @keyframes digital-tomek-blink {
+        0%, 20% { opacity: 0; }
+        50% { opacity: 1; }
+        100% { opacity: 0; }
+      }
+
+      /* Mobile responsiveness */
+      @media (max-width: 480px) {
+        .digital-tomek-chat-box {
+          width: calc(100vw - 40px) !important;
+          right: 20px !important;
+          left: 20px !important;
+          bottom: 80px !important;
+        }
+      }
+    </style>
   </head>
   <body>
-    <!-- Bubble and chat box will be appended directly via JS -->
-    <script defer src="chat-widget.js"></script>
+    <script>
+      // Digital Tomek Chat Widget - Inline version
+      (function() {
+        'use strict';
+        
+        function initChatWidget() {
+          console.log("Digital Tomek chat widget initializing...");
+          
+          // Check if widget already exists
+          if (document.querySelector('.digital-tomek-chat-bubble')) {
+            console.log("Chat widget already exists, skipping initialization");
+            return;
+          }
+          
+          // Create bubble button
+          const bubbleBtn = document.createElement("button");
+          bubbleBtn.innerHTML = "💬";
+          bubbleBtn.className = "digital-tomek-chat-bubble";
+          bubbleBtn.setAttribute('aria-label', 'Open chat with Digital Tomek');
+          
+          // Create chat box
+          const chatBox = document.createElement("div");
+          chatBox.className = "digital-tomek-chat-box hidden";
+          chatBox.innerHTML = `
+            <div class="digital-tomek-chat-header">Digital Tomek AI Assistant</div>
+            <div class="digital-tomek-chat-options">
+              <button class="digital-tomek-chat-option" data-msg="Tell me about your experience and projects">🗺️ Tell me about your experience and projects</button>
+              <button class="digital-tomek-chat-option" data-msg="Show me your CV">📄 Show me your CV</button>
+              <button class="digital-tomek-chat-option" data-msg="Show me your scope of services">🛠️ Show me your scope of services</button>
+              <button class="digital-tomek-chat-option" data-msg="Show me your terms of engagement">📋 Show me your terms of engagement</button>
+            </div>
+            <div class="digital-tomek-chat-messages" id="digital-tomek-chat-messages">
+              <div class="digital-tomek-message bot">Hi! I'm Digital Tomek's AI assistant. Ask me anything about Tomek's experience, services, or AI marketing insights.</div>
+            </div>
+            <div class="digital-tomek-chat-input">
+              <input type="text" id="digital-tomek-chat-input-field" placeholder="Type your message..." />
+              <button id="digital-tomek-chat-send">Send</button>
+            </div>
+            <div class="digital-tomek-chat-footer">
+              <a href="https://calendly.com/tomek-weber/30min" target="_blank" rel="noopener">📅 Book a meeting</a>
+            </div>
+          `;
+          
+          // Add elements to body
+          document.body.appendChild(bubbleBtn);
+          document.body.appendChild(chatBox);
+          console.log("Chat widget elements added to DOM");
+          
+          // Get references
+          const sendBtn = chatBox.querySelector("#digital-tomek-chat-send");
+          const inputField = chatBox.querySelector("#digital-tomek-chat-input-field");
+          const messagesContainer = chatBox.querySelector("#digital-tomek-chat-messages");
+          const optionButtons = chatBox.querySelectorAll(".digital-tomek-chat-option");
+          
+          // Toggle chat function
+          bubbleBtn.addEventListener("click", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log("Chat bubble clicked");
+            chatBox.classList.toggle("hidden");
+          });
+          
+          // Close chat when clicking outside
+          document.addEventListener("click", function(e) {
+            if (!chatBox.contains(e.target) && !bubbleBtn.contains(e.target)) {
+              chatBox.classList.add("hidden");
+            }
+          });
+          
+          // Helper functions
+          function appendMessage(sender, text) {
+            const msg = document.createElement("div");
+            msg.className = `digital-tomek-message ${sender}`;
+            msg.innerHTML = text.split('\n\n').map(p => `<p style="margin: 0 0 8px 0;">${p.trim()}</p>`).join('');
+            messagesContainer.appendChild(msg);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+          }
+          
+          function appendTypingIndicator() {
+            const typing = document.createElement("div");
+            typing.className = "digital-tomek-message bot typing";
+            typing.id = "digital-tomek-typing-indicator";
+            typing.innerHTML = `<div class="digital-tomek-typing"><span>●</span><span>●</span><span>●</span></div>`;
+            messagesContainer.appendChild(typing);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+          }
+          
+          function removeTypingIndicator() {
+            const typing = document.getElementById("digital-tomek-typing-indicator");
+            if (typing) typing.remove();
+          }
+          
+          async function sendMessage(userInput) {
+            appendMessage("user", userInput);
+            appendTypingIndicator();
+            
+            try {
+              const response = await fetch("https://digital-tomek.vercel.app/api/chat", {
+                method: "POST",
+                headers: { 
+                  "Content-Type": "application/json",
+                  "Accept": "application/json"
+                },
+                body: JSON.stringify({ message: userInput })
+              });
+              
+              if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+              }
+              
+              const data = await response.json();
+              removeTypingIndicator();
+              appendMessage("bot", data.reply || "Sorry, I couldn't understand that. Please try rephrasing your question.");
+            } catch (error) {
+              console.error("API Error:", error);
+              removeTypingIndicator();
+              appendMessage("bot", "I'm having trouble connecting right now. Please try again in a moment or feel free to book a meeting directly with Tomek.");
+            }
+          }
+          
+          // Event listeners for option buttons
+          optionButtons.forEach(btn => {
+            btn.addEventListener("click", async function(e) {
+              e.preventDefault();
+              const userInput = btn.getAttribute("data-msg");
+              chatBox.querySelector(".digital-tomek-chat-options").style.display = "none";
+              await sendMessage(userInput);
+            });
+          });
+          
+          // Send button click
+          sendBtn.addEventListener("click", async function(e) {
+            e.preventDefault();
+            const userInput = inputField.value.trim();
+            if (!userInput) return;
+            inputField.value = "";
+            await sendMessage(userInput);
+          });
+          
+          // Enter key in input
+          inputField.addEventListener("keypress", function(e) {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              sendBtn.click();
+            }
+          });
+          
+          console.log("Digital Tomek chat widget loaded successfully!");
+        }
+        
+        // Initialize when DOM is ready
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', initChatWidget);
+        } else {
+          initChatWidget();
+        }
+        
+        // Fallback - initialize after a short delay
+        setTimeout(initChatWidget, 1000);
+      })();
+    </script>
   </body>
 </html>
