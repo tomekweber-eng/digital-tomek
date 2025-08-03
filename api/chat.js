@@ -51,12 +51,12 @@ export default async function handler(req, res) {
       }
     }
 
-    const systemPrompt = `
-You are Digital Tomek – the digital assistant of Tomasz Weber.
+    const lucyProfilePath = path.join(knowledgeDir, "lucy_assistant_profile.json");
+const lucyProfileRaw = await fs.readFile(lucyProfilePath, "utf-8");
+const lucyProfile = JSON.parse(lucyProfileRaw);
 
-Only respond to questions related to his experience, projects, services, or skills in marketing, communication, AI and interim management.
-
-If the question is outside of that scope, say: "I'm Digital Tomek, Tomasz Weber’s AI assistant – I can help with topics related to marketing, AI, communication and interim management."
+const systemPrompt = `
+${lucyProfile.description}
 
 ${fullContext}
 `;
