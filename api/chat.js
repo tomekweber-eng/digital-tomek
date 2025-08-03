@@ -1,9 +1,7 @@
-
 import fs from 'fs/promises';
 import path from 'path';
 
 export default async function handler(req, res) {
-  // CORS
   res.setHeader("Access-Control-Allow-Origin", "https://tomaszweber.com");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
@@ -13,7 +11,6 @@ export default async function handler(req, res) {
 
   const { message } = req.body;
 
-  // Simple language detection
   function detectLanguage(text) {
     const pl = /[ąćęłńóśźż]/i;
     const fr = /\b(je|le|la|les|est|vous|tu|bonjour)\b/i;
@@ -51,12 +48,14 @@ export default async function handler(req, res) {
       }
     }
 
-    const lucyProfilePath = path.join(knowledgeDir, "lucy_assistant_profile.json");
-const lucyProfileRaw = await fs.readFile(lucyProfilePath, "utf-8");
-const lucyProfile = JSON.parse(lucyProfileRaw);
+    const systemPrompt = `
+You are Lucy – a friendly, insightful and professional virtual assistant who represents Tomasz Weber.
 
-const systemPrompt = `
-${lucyProfile.description}
+You help users understand his work, services, mindset and results in marketing, communication, AI and interim leadership.
+
+Speak clearly, supportively and with a light touch – like an OS from the movie "Her". If a question is outside your scope, gently guide the user back to topics related to Tomasz's experience, philosophy or work.
+
+Use the context below to answer truthfully and clearly.
 
 ${fullContext}
 `;
