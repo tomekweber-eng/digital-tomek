@@ -1309,6 +1309,23 @@
         background: #5E28AD !important;
       }
 
+      /* Specific styling for the Send button */
+      #digital-tomek-chat-send {
+        background: #2A0E3C !important;
+        color: white !important;
+        border: none !important;
+        padding: 10px 16px !important;
+        border-radius: 20px !important;
+        cursor: pointer !important;
+        font-weight: bold !important;
+        font-size: 14px !important;
+        transition: background 0.2s ease !important;
+      }
+
+      #digital-tomek-chat-send:hover {
+        background: #5E28AD !important;
+      }
+
       .digital-tomek-chat-footer {
         text-align: center !important;
         font-size: 12px !important;
@@ -1436,16 +1453,6 @@
           const chatBox = document.createElement("div");
           chatBox.className = "digital-tomek-chat-box hidden";
           chatBox.innerHTML = `
-<<<<<<< HEAD
-            <div class="digital-tomek-chat-header">Lucy - AI Assistant</div>
-            <div class="digital-tomek-chat-messages" id="digital-tomek-chat-messages">
-              <div class="digital-tomek-message bot">
-                <img src="images/lucy-avatar.png" class="lucy-avatar" alt="Lucy Avatar">
-                <div><p style="margin: 0 0 8px 0; font-size:14px !important;">Hi, I'm <strong>Lucy</strong> – an AI assistant built to help you explore Tomasz Weber's work, services, and ideas.</p><p style="margin: 0 0 8px 0; font-size:14px !important;">I'm still learning, and while I do my best to answer clearly, I might occasionally hallucinate 🌀 – so treat me like a friendly guide, not an oracle.</p></div>
-              </div>
-            </div>
-            
-=======
             <div class="digital-tomek-chat-header">Digital Tomek AI Assistant</div>
             <div class="digital-tomek-chat-options">
               <button class="digital-tomek-chat-option" data-msg="Tell me about your experience and projects">🗺️ Tell me about your experience and projects</button>
@@ -1456,7 +1463,6 @@
             <div class="digital-tomek-chat-messages" id="digital-tomek-chat-messages">
               <div class="digital-tomek-message bot">Hi! I'm Digital Tomek's AI assistant. Ask me anything about Tomek's experience, services, or AI marketing insights.</div>
             </div>
->>>>>>> 36262425bdc4fdff09785914c2b7850e81b17a65
             <div class="digital-tomek-chat-input">
               <input type="text" id="digital-tomek-chat-input-field" placeholder="Type your message..." />
               <button id="digital-tomek-chat-send">Send</button>
@@ -1475,11 +1481,7 @@
           const sendBtn = chatBox.querySelector("#digital-tomek-chat-send");
           const inputField = chatBox.querySelector("#digital-tomek-chat-input-field");
           const messagesContainer = chatBox.querySelector("#digital-tomek-chat-messages");
-<<<<<<< HEAD
-          
-=======
           const optionButtons = chatBox.querySelectorAll(".digital-tomek-chat-option");
->>>>>>> 36262425bdc4fdff09785914c2b7850e81b17a65
           
           // Toggle chat function
           bubbleBtn.addEventListener("click", function(e) {
@@ -1621,33 +1623,26 @@
           
           function startAutoOpenTimer() {
             autoOpenTimer = setTimeout(() => {
-              if (!hasUserInteracted && document.querySelector('.digital-tomek-chat-box.hidden')) {
-                const chatBox = document.querySelector('.digital-tomek-chat-box');
-                const messagesContainer = document.querySelector('.digital-tomek-chat-messages');
-                if (chatBox) {
-                  chatBox.classList.remove('hidden');
-                  // Add a subtle animation to draw attention
-                  chatBox.style.animation = "pulse 2s ease-in-out";
-                  
-                  // Add a welcome message indicating auto-open
-                  setTimeout(() => {
-                    const msg = document.createElement("div");
-                    msg.className = "digital-tomek-message bot";
-                    msg.innerHTML = `
-                      <img src="images/lucy-avatar.png" class="lucy-avatar" alt="Lucy Avatar">
-                      👋 Hi there! I noticed you've been browsing for a moment. I'm Digital Tomek - feel free to ask me anything about Tomasz's experience, projects, or services!
-                    `;
-                    if (messagesContainer) {
-                      messagesContainer.appendChild(msg);
-                      messagesContainer.scrollTop = messagesContainer.scrollHeight;
-                    }
-                  }, 500);
-                  
-                  // Remove animation after it completes
-                  setTimeout(() => {
-                    chatBox.style.animation = "";
-                  }, 2000);
-                }
+              if (!hasUserInteracted && chatBox && chatBox.classList.contains('hidden')) {
+                chatBox.classList.remove('hidden');
+                // Add a subtle animation to draw attention
+                chatBox.style.animation = "pulse 2s ease-in-out";
+                
+                // Add a welcome message indicating auto-open
+                setTimeout(() => {
+                  const msg = document.createElement("div");
+                  msg.className = "digital-tomek-message bot";
+                  msg.innerHTML = `👋 Hi there! I noticed you've been browsing for a moment. I'm Digital Tomek - feel free to ask me anything about Tomasz's experience, projects, or services!`;
+                  if (messagesContainer) {
+                    messagesContainer.appendChild(msg);
+                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                  }
+                }, 500);
+                
+                // Remove animation after it completes
+                setTimeout(() => {
+                  chatBox.style.animation = "";
+                }, 2000);
               }
             }, 5000); // 5 seconds
           }
@@ -1664,10 +1659,7 @@
           startAutoOpenTimer();
           
           // Cancel auto-open if user interacts with the bubble manually
-          const bubbleBtn = document.querySelector('.digital-tomek-chat-bubble');
-          if (bubbleBtn) {
-            bubbleBtn.addEventListener("click", trackUserInteraction);
-          }
+          bubbleBtn.addEventListener("click", trackUserInteraction);
           
           // Also track other interactions like scrolling or clicking
           document.addEventListener("scroll", trackUserInteraction, { once: true });
