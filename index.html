@@ -1226,12 +1226,7 @@
       }
 
       .digital-tomek-message.user {
-<<<<<<< HEAD
-        background: #e6d4f5 !important;
-        color: #4a0065 !important;
-=======
-        background: #6a1b9a !important;
->>>>>>> 36262425bdc4fdff09785914c2b7850e81b17a65
+        background: #5E28AD !important;
         color: white !important;
         margin-left: auto !important;
         margin-right: 0 !important;
@@ -1297,42 +1292,26 @@
       }
 
       .digital-tomek-chat-input button {
-<<<<<<< HEAD
-        background: #7b1fa2 !important;
-=======
-        background: #6a1b9a !important;
->>>>>>> 36262425bdc4fdff09785914c2b7850e81b17a65
+        background: #2A0E3C !important;
         color: white !important;
         border: none !important;
         padding: 10px 16px !important;
         border-radius: 20px !important;
         cursor: pointer !important;
         font-weight: bold !important;
-<<<<<<< HEAD
         font-size: 14px !important;
-=======
-        font-size: 11px !important;
->>>>>>> 36262425bdc4fdff09785914c2b7850e81b17a65
         margin: 0 !important;
         font-family: inherit !important;
         transition: background 0.2s ease !important;
       }
 
       .digital-tomek-chat-input button:hover {
-<<<<<<< HEAD
         background: #5E28AD !important;
-=======
-        background: #7b1fa2 !important;
->>>>>>> 36262425bdc4fdff09785914c2b7850e81b17a65
       }
 
       .digital-tomek-chat-footer {
         text-align: center !important;
-<<<<<<< HEAD
-        font-size: 14px !important;
-=======
-        font-size: 10px !important;
->>>>>>> 36262425bdc4fdff09785914c2b7850e81b17a65
+        font-size: 12px !important;
         padding: 8px !important;
         background: #f8f9fa !important;
         margin: 0 !important;
@@ -1635,6 +1614,64 @@
           });
           
           console.log("Digital Tomek chat widget loaded successfully!");
+          
+          // Auto-open chat after 5 seconds
+          let autoOpenTimer;
+          let hasUserInteracted = false;
+          
+          function startAutoOpenTimer() {
+            autoOpenTimer = setTimeout(() => {
+              if (!hasUserInteracted && document.querySelector('.digital-tomek-chat-box.hidden')) {
+                const chatBox = document.querySelector('.digital-tomek-chat-box');
+                const messagesContainer = document.querySelector('.digital-tomek-chat-messages');
+                if (chatBox) {
+                  chatBox.classList.remove('hidden');
+                  // Add a subtle animation to draw attention
+                  chatBox.style.animation = "pulse 2s ease-in-out";
+                  
+                  // Add a welcome message indicating auto-open
+                  setTimeout(() => {
+                    const msg = document.createElement("div");
+                    msg.className = "digital-tomek-message bot";
+                    msg.innerHTML = `
+                      <img src="images/lucy-avatar.png" class="lucy-avatar" alt="Lucy Avatar">
+                      👋 Hi there! I noticed you've been browsing for a moment. I'm Digital Tomek - feel free to ask me anything about Tomasz's experience, projects, or services!
+                    `;
+                    if (messagesContainer) {
+                      messagesContainer.appendChild(msg);
+                      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                    }
+                  }, 500);
+                  
+                  // Remove animation after it completes
+                  setTimeout(() => {
+                    chatBox.style.animation = "";
+                  }, 2000);
+                }
+              }
+            }, 5000); // 5 seconds
+          }
+          
+          // Track user interaction to prevent auto-open if they've already interacted
+          function trackUserInteraction() {
+            hasUserInteracted = true;
+            if (autoOpenTimer) {
+              clearTimeout(autoOpenTimer);
+            }
+          }
+          
+          // Start the auto-open timer
+          startAutoOpenTimer();
+          
+          // Cancel auto-open if user interacts with the bubble manually
+          const bubbleBtn = document.querySelector('.digital-tomek-chat-bubble');
+          if (bubbleBtn) {
+            bubbleBtn.addEventListener("click", trackUserInteraction);
+          }
+          
+          // Also track other interactions like scrolling or clicking
+          document.addEventListener("scroll", trackUserInteraction, { once: true });
+          document.addEventListener("click", trackUserInteraction, { once: true });
         }
         
         // Initialize when DOM is ready
@@ -1647,7 +1684,6 @@
         // Fallback - initialize after a short delay
         setTimeout(initChatWidget, 1000);
       })();
-<<<<<<< HEAD
     
 </script>
 <style>
@@ -1665,11 +1701,6 @@
     #chat-widget-container .digital-tomek-chat-header {
       font-size: 14px !important;
     }
-  </style>
+</style>
 </body>
 </html>
-=======
-    </script>
-  </body>
-</html>
->>>>>>> 36262425bdc4fdff09785914c2b7850e81b17a65
