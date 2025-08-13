@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "version": 2,
   "builds": [
     { "src": "api/chat.js", "use": "@vercel/node" },
@@ -11,5 +12,18 @@
     { "src": "/api/github-auth", "dest": "api/github-auth.js" },
     { "src": "/api/github-webhook", "dest": "api/github-webhook.js" },
     { "src": "/api/github-admin", "dest": "api/github-admin.js" }
+=======
+  "routes": [
+    {
+      "src": "/api/chat",
+      "methods": ["OPTIONS", "POST"],
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type"
+      },
+      "dest": "/api/chat.js"
+    }
+>>>>>>> 36262425bdc4fdff09785914c2b7850e81b17a65
   ]
 }

@@ -15,7 +15,11 @@
     },
     {
       "section": "FAQ: On AI and Tools",
+<<<<<<< HEAD
       "content": "AI is not a buzzword for me – it's a tool. I use it to speed up marketing actions, ease the burden on teams, and analyze results more effectively. But AI isn't for everything – you need to understand its limits.\n\nI help companies adopt AI in a practical, effective way – without dramatic overhauls but with visible impact where it makes sense.\n\nAs an example of practical AI implementation, this very chat system integrates with GitHub for authentication and administration, demonstrating how AI can be professionally integrated with existing development workflows."
+=======
+      "content": "AI is not a buzzword for me – it’s a tool. I use it to speed up marketing actions, ease the burden on teams, and analyze results more effectively. But AI isn’t for everything – you need to understand its limits.\n\nI help companies adopt AI in a practical, effective way – without dramatic overhauls but with visible impact where it makes sense."
+>>>>>>> 36262425bdc4fdff09785914c2b7850e81b17a65
     },
     {
       "section": "FAQ: Work Style",
