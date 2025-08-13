@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "api/chat.js", "use": "@vercel/node" },
+    { "src": "api/github-auth.js", "use": "@vercel/node" },
+    { "src": "api/github-webhook.js", "use": "@vercel/node" },
+    { "src": "api/github-admin.js", "use": "@vercel/node" }
+  ],
+  "routes": [
+    { "src": "/api/chat", "dest": "api/chat.js" },
+    { "src": "/api/github-auth", "dest": "api/github-auth.js" },
+    { "src": "/api/github-webhook", "dest": "api/github-webhook.js" },
+    { "src": "/api/github-admin", "dest": "api/github-admin.js" }
+  ]
+}

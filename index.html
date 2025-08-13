@@ -1,0 +1,1564 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tomasz Weber | Portfolio | Marketing | Communications | AI | Digital | Strategy </title>
+<link href="css/style.css" rel="stylesheet"/>
+<link href="css/sliders.css" rel="stylesheet"/>
+<link href="css/animations.css" rel="stylesheet"/>
+<link href="css/seamless-transitions.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Favicon -->
+<link href="images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link href="images/favicon.png" rel="icon" type="image/png"/>
+<!-- Navigation Menu Styles -->
+<style>
+        .main-navigation {
+            background-color: rgba(230, 220, 255, 0.4);
+            backdrop-filter: blur(8px);
+            padding: 8px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            min-height: 40px;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+        
+        .nav-logo {
+            flex-shrink: 0;
+        }
+        
+        .nav-logo a {
+            text-decoration: none;
+            color: #2A0E3C;
+            font-weight: 700;
+            font-size: 14px;
+            font-family: 'Venus Rising', sans-serif;
+            letter-spacing: 0.5px;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-logo a:hover {
+            color: #5E28AD;
+        }
+        
+        .burger {
+            width: 40px;
+            height: 40px;
+            background: #473075;
+            border-radius: 8px;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(50, 40, 90, 0.08);
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .burger-line {
+            width: 28px;
+            height: 3px;
+            background: #fff;
+            border-radius: 2px;
+            margin: 3px 0;
+            transition: all 0.3s;
+            display: block;
+        }
+        
+        .burger.active .burger-line:nth-child(1) {
+            transform: rotate(-45deg) translate(-6px, 6px);
+        }
+        
+        .burger.active .burger-line:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .burger.active .burger-line:nth-child(3) {
+            transform: rotate(45deg) translate(-6px, -6px);
+        }
+        
+        .burger:hover {
+            box-shadow: 0 4px 12px rgba(50, 40, 90, 0.15);
+        }
+        
+        .nav-menu {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .nav-menu li {
+            margin: 0;
+        }
+        
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            padding: 3px 6px;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        
+        .nav-menu a:hover {
+            background-color: rgba(100, 50, 150, 0.8);
+            color: white;
+        }
+        
+        /* Desktop and Tablet Responsiveness */
+        @media (max-width: 1024px) {
+            .nav-logo a {
+                font-size: 13px;
+            }
+            
+            .nav-menu a {
+                font-size: 9px;
+                padding: 2px 5px;
+            }
+            
+            .nav-menu {
+                gap: 10px;
+            }
+        }
+        
+        /* Mobile Burger Menu */
+        @media (max-width: 900px) {
+            .burger {
+                display: flex;
+            }
+            
+            .nav-logo a {
+                font-size: 12px;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 100%;
+                right: 0;
+                width: 250px;
+                height: calc(100vh - 100%);
+                background-color: rgba(230, 220, 255, 0.95);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 20px;
+                gap: 15px;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+                box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            .nav-menu.active {
+                transform: translateX(0);
+            }
+            
+            .nav-menu a {
+                font-size: 14px;
+                padding: 8px 12px;
+                width: 100%;
+                border-radius: 5px;
+            }
+            
+            .nav-menu li {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .nav-logo a {
+                font-size: 11px;
+            }
+            
+            .nav-menu {
+                width: 200px;
+                padding: 15px;
+            }
+            
+            .nav-menu a {
+                font-size: 12px;
+                padding: 6px 10px;
+            }
+        }
+        
+                 /* Add padding to body to compensate for fixed navigation */
+        body {
+            padding-top: 40px;
+        }
+        
+        /* General Responsiveness Improvements */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Hero Section Responsiveness */
+        .hero-section {
+            min-height: 60vh;
+        }
+        
+        .hero-content h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+        }
+        
+        .hero-content .tagline {
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            margin: 20px 0;
+        }
+        
+        /* About Section Split Layout */
+        .split-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .hero-section {
+                min-height: 50vh;
+            }
+            
+            .split-layout {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 30px;
+            }
+            
+            /* Ensure text content always comes first on mobile */
+            .split-layout .content-side {
+                order: 1;
+            }
+            
+            /* Ensure images always come second on mobile */
+            .split-layout .image-side {
+                order: 2;
+            }
+            
+            .hero-content .tagline {
+                margin: 15px 0;
+            }
+            
+            /* Reduce section spacing on mobile */
+            section {
+                padding: 30px 0;
+            }
+            
+            .about-section, .expertise-section, .projects-section, .education-skills-section {
+                margin-bottom: 20px;
+            }
+            
+            .project-item {
+                padding: 20px 0;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 10px;
+            }
+            
+            .hero-section {
+                min-height: 40vh;
+            }
+            
+            .split-layout {
+                gap: 20px;
+            }
+            
+            /* Maintain order on smallest screens too */
+            .split-layout .content-side {
+                order: 1;
+            }
+            
+            .split-layout .image-side {
+                order: 2;
+            }
+            
+            /* Further reduce spacing on small mobile */
+            section {
+                padding: 20px 0;
+            }
+            
+            .about-section, .expertise-section, .projects-section, .education-skills-section {
+                margin-bottom: 15px;
+            }
+            
+            .project-item {
+                padding: 15px 0;
+            }
+        }
+        
+        /* Reduce space between Scope of Services and Terms */
+        .expertise-section {
+            margin-bottom: 20px;
+        }
+        
+        .projects-section {
+            margin-top: 0;
+            padding-top: 20px;
+        }
+        
+        /* Terms Two Columns Layout */
+        .terms-two-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 20px;
+        }
+        
+        .terms-column h4 {
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        
+        .terms-column p {
+            margin-bottom: 20px;
+        }
+        
+        .terms-column ul {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+        
+        .terms-column li {
+            margin-bottom: 5px;
+            line-height: 1.4;
+        }
+        
+        /* Responsive Design for Terms Columns */
+        @media (max-width: 768px) {
+            .terms-two-columns {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+    </style>
+<!-- Floating Chat Widget -->
+<link href="css/chat-widget.css" rel="stylesheet"/>
+</head>
+<!-- Google tag (gtag.js) -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-0Z7QN2JEE8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0Z7QN2JEE8');
+</script>
+<body id="top">
+<!-- Navigation Menu -->
+<nav class="main-navigation">
+<div class="nav-container">
+<!-- Logo/Brand -->
+<div class="nav-logo">
+<a href="#top">Tomaszweber.com</a>
+</div>
+<!-- Burger Button -->
+<div class="burger" id="burgerMenu">
+<span class="burger-line"></span>
+<span class="burger-line"></span>
+<span class="burger-line"></span>
+</div>
+<!-- Navigation Menu -->
+<ul class="nav-menu" id="navMenu">
+<li><a href="#about">About me</a></li>
+<li><a href="#expertise">Scope of services</a></li>
+<li><a href="#terms">Terms</a></li>
+<li><a href="#references">References</a></li>
+<li><a href="#projects">Projects</a></li>
+<li><a href="#education">Education</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+</div>
+</nav>
+<!-- Hero Section with full-width image -->
+<section class="hero-section">
+<div class="hero-image-container">
+<img alt="Digital Marketing Concept" class="hero-image" src="images/digital_marketing_blocks.jpg"/>
+</div>
+<div class="container">
+<div class="hero-content">
+<h1>Tomasz Weber</h1>
+<p class="tagline"> I support companies at every stage – from strategy to operational delivery, for both short-term and complex projects.</p>
+<div class="cta-button">
+<a href="https://calendly.com/tomek-weber/30min" rel="noopener noreferrer" target="_blank">Let's talk about your project →</a>
+</div>
+</div>
+</div>
+</section>
+<!-- About Section with single image -->
+<section class="about-section" id="about">
+<div class="container">
+<h2>About Me</h2>
+<div class="split-layout">
+<div class="content-side"><p>I step in as an interim marketing manager when you need to move fast, looking for temporary support or launching ad hoc campaign or project.</p><p>Unlike many consultants, I don't just advise - I co-create strategies, design campaigns, and work side-by-side with your team to deliver visible results, even within tight timelines.</p><p>With 20+ years of experience in construction, SaaS, and logistics, I've led initiatives from digital turnarounds for international brands to quick-win short campaigns and projects that generated measurable growth up to long-term brand and communication strategies.</p><p>My approach is simple: get in, support, augment or create what matters or is needed, and empower others with tools and processes they can maintain long after I'm gone.</p></div>
+<div class="image-side">
+<div class="image-container animated">
+<img alt="Tomasz Weber - Professional Portrait" src="images/about_me_photo.jpg"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Expertise Section as white text slider -->
+<section class="expertise-section" id="expertise">
+<div class="container">
+<h2>Scope of Services</h2>
+<div class="statement-slider">
+<div class="statement-track">
+<div class="statement-slide">
+<h3>Marketing campaigns</h3>
+<p>Supporting the planning, execution, and optimization of integrated marketing campaigns — from briefing and creative concepts to execution and reporting.</p>
+</div>
+<div class="statement-slide">
+<h3>Rebranding &amp; positioning</h3>
+<p>Coordinating brand analysis, developing new positioning proposals, aligning stakeholders, and managing the rollout of refreshed branding.</p>
+</div>
+<div class="statement-slide">
+<h3>Product marketing</h3>
+<p>Developing and implementing product messaging and sales tools to support product launches and portfolio renewals.</p>
+</div>
+<div class="statement-slide">
+<h3>Loyalty programs and B2B incentive campaigns</h3>
+<p>Designing loyalty programs and B2B incentive campaigns that strengthen customer and partner relationships and influence short-term sales.</p>
+</div>
+<div class="statement-slide">
+<h3>Crisis communication</h3>
+<p>Developing crisis plans, preparing key communications, and training teams to ensure readiness for rapid and coordinated response.</p>
+</div>
+<div class="statement-slide">
+<h3>Thought leadership campaigns</h3>
+<p>Developing a thought leadership strategy, selecting tools and communication channels, creating original expert content, and supporting brand positioning as an industry leader to increase share of voice.</p>
+</div>
+<div class="statement-slide">
+<h3>Marketing automation &amp; AI enablement</h3>
+<p>Implementing automation tools that reduce manual work up to 40% and increase campaign ROI, including AI integration, team training, and workflow optimization.</p>
+</div>
+<div class="statement-slide">
+<h3>Change management in marketing teams</h3>
+<p>Leading change initiatives: facilitating workshops, clarifying objectives, and supporting team adaptation to new tools and working methods and processes.</p>
+</div>
+</div>
+</div>
+<div class="slider-controls">
+<button class="slider-button prev-button">←</button>
+<button class="slider-button next-button">→</button>
+</div>
+</div>
+</section>
+<!-- Projects Section with alternating layouts -->
+<section class="projects-section">
+<div class="project-item light" id="terms">
+<div class="container">
+<h2>Interim Assignment Terms</h2>
+<p align="center">Collaboration is always based on clear, transparent conditions tailored individualy to each project.</p>
+<div class="terms-two-columns">
+<div class="terms-column">
+<h4>Form of Engagement</h4>
+<p>Engagement is fully flexible and tailored to each client's needs. Collaboration is possible via B2B cooperation, fixed-term employment, service contract. Projects can be carried out fully remotely across the EU and worldwide, or in a hybrid model for clients based in Poland.</p>
+<p style="text-align: center; margin: 20px 0;">⸻</p>
+<h4>Confidentiality &amp; Compliance</h4>
+<p>Confidentiality is ensured through an NDA with every assignment, guaranteeing the protection of sensitive business information. Additional non-compete clauses can be introduced whenever required, providing an extra layer of safety and security.</p>
+</div>
+<div class="terms-column">
+<h4>Fees and Settlement</h4>
+<p>Fees start from €120 per hour, with the possibility of arranging a monthly retainer for longer assignments. All terms, including rates and payment schedules, are individually agreed for each project to ensure full transparency and alignment with business needs.</p>
+<p style="text-align: center; margin: 20px 0;">⸻</p>
+<h4>Duration</h4>
+<p>Assignments typically last from 3 to 12 months, offering the flexibility to adapt to short- and medium-term goals. A one-week onboarding period is provided to ensure a smooth start, and extensions are possible if further support is needed.</p>
+</div>
+</div>
+<div class="cta-button">
+<a href="#contact">Contact Me →</a>
+</div>
+</div>
+</div>
+</section>
+<!-- References & Testimonials as slider -->
+<section class="education-skills-section" id="references">
+<div class="container">
+<h2>References &amp; Testimonials</h2>
+<p>See what international leaders, partners, and managers say about our cooperation.</p>
+<div class="statement-slider">
+<div class="statement-track">
+<div class="statement-slide">
+<p style="font-style: italic; margin-bottom: 15px;">"Tomasz has a real talent for connecting the dots across teams, turning complexity into clarity, and aligning people around a shared direction. He played a key role in supporting broader business goals — from communications and digital initiatives to positioning and leadership engagement. Whether it was driving change or helping shape a clear narrative, Tomasz brought cohesion across functions and levels of the organization with ease. What sets him apart is not just his strategic mindset, but his hands-on, roll-up-the-sleeves attitude. He's a natural storyteller with a creative edge, equally comfortable collaborating with senior leaders as with cross-functional teams. A true partner in every sense — sharp, reliable, and always focused on impact."</p>
+<p style="margin-bottom: 3px;"><strong>Niels Kryger</strong></p>
+<p style="margin-top: 0; font-size: 14px; color: #666;">Head of Global Digital Marketing, ROCKWOOL International</p>
+</div>
+<div class="statement-slide">
+<p style="font-style: italic; margin-bottom: 15px;">"I had the pleasure of working with Tomasz Weber during my time at the Girteka Group. He was responsible for corporate communications within the marketing team and truly led the way in this area. Tomasz is highly skilled in PR and external communication, demonstrating analytical and results-driven approaches. His extensive knowledge and passion for Artificial Intelligence were invaluable in raising the bar for the whole team. Above all, Tomasz is a hardworking team player and a pleasure to work with. I fully recommend him to any international marketing team."</p>
+<p style="margin-bottom: 3px;"><strong>Marcel Priester</strong></p>
+<p style="margin-top: 0; font-size: 14px; color: #666;">CMO, Girteka Group</p>
+</div>
+<div class="statement-slide">
+<p style="font-style: italic; margin-bottom: 15px;">"Tomasz and I have many joint projects at work. projects are successful and most importantly carried out with great enthusiasm. the best example of this is "Mindaugas on the road". Tomasz also helps me with external communication. always engaged, we don't miss a single negative or positive article, we respond on time, and most importantly, Tomasz works in a team and is always fun to work with."</p>
+<p style="margin-bottom: 3px;"><strong>Mindaugas Paulauskas</strong></p>
+<p style="margin-top: 0; font-size: 14px; color: #666;">CEO, Girteka Transport</p>
+</div>
+<div class="statement-slide">
+<p style="font-style: italic; margin-bottom: 15px;">"Tomasz Weber is a valuable communication professional with strategic thinking, quick reactions, strong problem-solving skills, and inspiring creativity. Due to his excellent personal and professional communication skills, he is great to work with for both the company and the outsourcing partners. I'm very happy and honoured to work together."</p>
+<p style="margin-bottom: 3px;"><strong>Ieva Naujalyte</strong></p>
+<p style="margin-top: 0; font-size: 14px; color: #666;">Managing Partner, Adverum</p>
+</div>
+<div class="statement-slide">
+<p style="font-style: italic; margin-bottom: 15px;">"Tomasz is not only a professional communicator through and through, but also an absolute pleasure to work with. His high standards, creativity and excellent marketing skills go hand in hand with a friendly, can-do attitude, which make him an open-minded, innovative business partner."</p>
+<p style="margin-bottom: 3px;"><strong>Sylwia Jacob</strong></p>
+<p style="margin-top: 0; font-size: 14px; color: #666;">Founder &amp; CEO, Toolbox Communication</p>
+</div>
+<div class="statement-slide">
+<p style="font-style: italic; margin-bottom: 15px;">"Highly motivated, self-driven, goal oriented professional. Extremely efficient and creative. Best in non-standard PR campaigns as well as internet marketing. And funny, I really enjoyed working with him!"</p>
+<p style="margin-bottom: 3px;"><strong>Agnieszka Miszta</strong></p>
+<p style="margin-top: 0; font-size: 14px; color: #666;">Head of Marketing, EEA Division Kingspan Insulated Panels</p>
+</div>
+<div class="statement-slide">
+<p style="font-style: italic; margin-bottom: 15px;">"I have worked with Tomasz on a number of Rockwool projects in the Embassy . He has always been a great support , open communicator and fantastic project manager. Very well prepared, organized keeping deadlines and promises. Tomasz is passionate about his job and it is a real pleasure to work with him !"</p>
+<p style="margin-bottom: 3px;"><strong>Ewa Lubiejewska-Kemajou</strong></p>
+<p style="margin-top: 0; font-size: 14px; color: #666;">Membership Network Coordinator, European DFIs - EDFI</p>
+</div>
+<div class="statement-slide">
+<p style="font-style: italic; margin-bottom: 15px;">"Tomasz is a kind of person You'll like to work with. Always full of new ideas, open to changing circumstances, will bring plenty of new business perspectives. Has ability to connect very different points of view into a logical communication process, taking care on budget and execution. We've been working together 5 years and it was a good experience!"</p>
+<p style="margin-bottom: 3px;"><strong>Piotr Pawlak</strong></p>
+<p style="margin-top: 0; font-size: 14px; color: #666;">Head of Product Management, ROCKWOOL CEE</p>
+</div>
+</div>
+</div>
+<div class="slider-controls">
+<button class="slider-button prev-button">←</button>
+<button class="slider-button next-button">→</button>
+</div>
+</div>
+</section>
+<!-- Projects Section with alternating layouts -->
+<section class="projects-section">
+<div class="container" id="projects">
+<h2>Selected Projects</h2>
+<!-- Project 1: Mindaugas (Text left, 3 images right) -->
+<div class="project-item light">
+<div class="container">
+<div class="split-layout">
+<div class="content-side text-left">
+<h3>Mindaugas on the Road – Girteka Group</h3>
+<p>The project was designed to break down barriers between management and administration employees and to strengthen employer branding by authentically showcasing the real life of truck drivers and the benefits of working at Girteka. Over two weeks, the CEO completed a full international route from Lithuania to Spain and back, with every stage of the journey documented in real time.</p>
+<h4>Area</h4>
+<p>Employer Brandind, Communication &amp; Digital Campaign</p>
+<h4>Key activities included:</h4>
+<ul>
+<li>Creating concept and execution plan</li>
+<li>Setting up a daily video workflow to capture, edit, and publish content highlighting both challenges and amenities for drivers</li>
+<li>Coordinating mobile technical support for on-the-road production</li>
+<li>Managing real-time social media communication and performance campaigns</li>
+<li>Analyzing and reporting progress and results with dedicated surveys</li>
+</ul>
+<h4>Results:</h4>
+<ul>
+<li>Over 2 million organic video views</li>
+<li>300% year-over-year increase in social engagement</li>
+<li>85% more qualified leads generated directly from campaign activities</li>
+<li>18% more friendly attitutde of adminsitraton employees and understnading the role of drivers</li>
+</ul>
+</div>
+<div class="image-side">
+<div class="multi-image-container">
+<img alt="Mindaugas on the Road Campaign Visual 1" class="multi-image image-1" height="300" loading="lazy" src="images/motr1.jpg" width="400"/>
+<img alt="Mindaugas on the Road Campaign Visual 2" class="multi-image image-2" height="300" loading="lazy" src="images/motr2.jpg" width="400"/>
+<img alt="Mindaugas on the Road Campaign Visual 3" class="multi-image image-3" height="300" loading="lazy" src="images/motr3.jpg" width="400"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Project 2: 3-Year Campaign (Images left, text right) -->
+<div class="full-width-q">
+<div class="project-item dark">
+<div class="container">
+<div class="split-layout">
+<div class="image-side">
+<div class="multi-image-container">
+<img alt="3-Year Brand Awareness Campaign Visual 1" class="multi-image image-1" height="300" loading="lazy" src="images/campaign1.jpg" width="400"/>
+<img alt="3-Year Brand Awareness Campaign Visual 2" class="multi-image image-2" height="300" loading="lazy" src="images/campaign2.jpg" width="400"/>
+<img alt="3-Year Brand Awareness Campaign Visual 3" class="multi-image image-3" height="300" loading="lazy" src="images/campaign3.jpg" width="400"/>
+</div>
+</div>
+<div class="content-side text-left">
+<h3>3‑Year Brand Awareness &amp; Preference Campaign – ROCKWOOL CEE</h3>
+<p>A comprehensive, multichannel campaign executed across Central and Eastern Europe to systematically build brand awareness and preference among both installers and end customers.</p>
+<h4>Area</h4>
+<p>Marketing Campaign, Loyalty Programs &amp; B2B Incentives</p>
+<h4>Key activities included:</h4>
+<ul>
+<li>Coordinating TV advertising, digital campaigns, and direct lead generation actions, fully integrated with ongoing B2B sales projects and trade marketing incentives</li>
+<li>Managing an installer loyalty program, content marketing, and targeted campaigns to address key market segments with tailored messaging</li>
+<li>Aligning all marketing efforts with the sales team and monitoring real-time campaign performance to quickly optimize activities</li>
+</ul>
+<h4>Results:</h4>
+<ul>
+<li>+17 percentage points increase in brand awareness</li>
+<li>+15 percentage points increase in brand preference</li>
+<li>10% year-on-year sales growth over the campaign period</li>
+<li>2,000+ earned media coverage</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Project 3: Rock Town (Text left, 3 images right) -->
+<div class="project-item light">
+<div class="container">
+<div class="split-layout">
+<div class="content-side text-left">
+<h3>Rock Town Gamification Program – ROCKWOOL</h3>
+<p>A targeted engagement program for dealers and contractors, using gamification to drive both sales activity and product education.</p>
+<h4>Area</h4>
+<p>Product Marketing, Loyalty Programs &amp; B2B Incentives</p>
+<h4>Key activities included:</h4>
+<ul>
+<li>Integrating the mobile game with overall sales and product strategy by setting personalized sales targets for each participant, directly linking gameplay achievements to strategic business objectives and the promotion of priority product lines</li>
+<li>Implementing gamification mechanics such as points, badges, and leaderboards to boost ongoing engagement and foster healthy competition among users</li>
+<li>Using the platform to communicate and reinforce the Group's updated value proposition, ensuring clear messaging around product benefits and differentiation</li>
+<li>Integrating the program seamlessly with all trade marketing activities for dealers and loyalty marketing for contractors, aligning incentives and communications across multiple channels</li>
+</ul>
+<h4>Results:</h4>
+<ul>
+<li>Up to 10% sales increase (depending on product segment)</li>
+<li>500 active player-customers regularly participating in the program</li>
+<li>Golden Arrow Award for Loyalty Programs</li>
+</ul>
+</div>
+<div class="image-side">
+<div class="multi-image-container">
+<img alt="Rock Town Gamification Program Visual 1" class="multi-image image-1" height="300" loading="lazy" src="images/rocktown1.jpg" width="400"/>
+<img alt="Rock Town Gamification Program Visual 2" class="multi-image image-2" height="300" loading="lazy" src="images/rocktown2.jpg" width="400"/>
+<img alt="Rock Town Gamification Program Visual 3" class="multi-image image-3" height="300" loading="lazy" src="images/rocktown3.jpg" width="400"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Project 4: Light-Wool (Images left, text right) -->
+<div class="project-item dark">
+<div class="container">
+<div class="split-layout">
+<div class="image-side">
+<div class="multi-image-container">
+<img alt="Light-Wool &amp; External Wall Insulation Relaunch Visual 1" class="multi-image image-1" height="300" loading="lazy" src="images/lightwool1.jpg" width="400"/>
+<img alt="Light-Wool &amp; External Wall Insulation Relaunch Visual 2" class="multi-image image-2" height="300" loading="lazy" src="images/lightwool2.jpg" width="400"/>
+<img alt="Light-Wool &amp; External Wall Insulation Relaunch Visual 3" class="multi-image image-3" height="300" loading="lazy" src="images/lightwool3.jpg" width="400"/>
+</div>
+</div>
+<div class="content-side text-left">
+<h3>Light-Wool &amp; External Wall Insulation Relaunch – ROCKWOOL</h3>
+<p>A practical, market-focused relaunch of the Light-Wool and External wall insulation portfolio, designed to differentiate and boost product competitiveness and support sales teams in key growth segments.</p>
+<h4>Area</h4>
+<p>Rebranding &amp; Positioning, Marketing Campaigns, Product Marketing</p>
+<h4>Key activities included:</h4>
+<ul>
+<li>Redefining the value proposition and updating technical specs to address specific market needs and regulatory requirements</li>
+<li>Upgrading product packaging for clearer on-shelf communication and enhanced logistics</li>
+<li>Developing educational materials and training sessions for installers to speed up product adoption on site</li>
+<li>Launching dealer incentive programs, running a multi-country roadshow, and coordinating a dedicated relaunch event to generate direct demand and feedback from the market</li>
+</ul>
+<h4>Results:</h4>
+<ul>
+<li>6% year-on-year sales growth in the category</li>
+<li>Achieved and secured the #1 position in the single-family house insulation segment</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<!-- Project 5: BuildDesk (Text left, 3 images right) -->
+<div class="project-item light">
+<div class="container">
+<div class="split-layout">
+<div class="content-side text-left">
+<h3>BuildDesk SaaS Launch</h3>
+<p>A pioneering project: one of Poland's first SaaS startups (launched in 2008), delivering automation tools for energy performance certification and audits.</p>
+<h4>Area</h4>
+<p>Marketing Campaigns, Product Marketing, Loyalty Programs &amp; B2B incentives</p>
+<h4>Key activities included:</h4>
+<ul>
+<li>Building a new software brand from scratch, including product development, onboarding processes, and customer support for energy auditors and industry professionals</li>
+<li>Developing dedicated software for generating energy certificates and conducting audits, with features tailored to support efficiency, accuracy, and compliance in daily operations</li>
+<li>Executing a comprehensive introduction plan: running training sessions and events for users, delivering targeted communication and performance marketing activities, as well as PR and direct customer communications to drive market adoption</li>
+</ul>
+<h4>Results:</h4>
+<ul>
+<li>Over 500 active customers annually in the first years</li>
+<li>Achieved a monopoly position in the Polish energy performance software market</li>
+<li>Establishing leader osition in buildings data in Poland</li>
+</ul>
+</div>
+<div class="image-side">
+<div class="multi-image-container">
+<img alt="BuildDesk SaaS Launch Visual 1" class="multi-image image-1" height="300" loading="lazy" src="images/builddesk1.jpg" width="400"/>
+<img alt="BuildDesk SaaS Launch Visual 2" class="multi-image image-2" height="300" loading="lazy" src="images/builddesk2.jpg" width="400"/>
+<img alt="BuildDesk SaaS Launch Visual 3" class="multi-image image-3" height="300" loading="lazy" src="images/builddesk3.jpg" width="400"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Project 6: Sixth Fuel (Images left, text right) -->
+<div class="project-item dark">
+<div class="container">
+<div class="split-layout">
+<div class="image-side">
+<div class="multi-image-container">
+<img alt="Sixth Fuel Campaign Visual 1" class="multi-image image-1" height="300" loading="lazy" src="images/6fuel1.jpg" width="400"/>
+<img alt="Sixth Fuel Campaign Visual 2" class="multi-image image-2" height="300" loading="lazy" src="images/6fuel2.jpg" width="400"/>
+<img alt="Sixth Fuel Campaign Visual 3" class="multi-image image-3" height="300" loading="lazy" src="images/6fuel3.jpg" width="400"/>
+</div>
+</div>
+<div class="content-side text-left">
+<h3>Sixth Fuel Campaign – ROCKWOOL</h3>
+<p>A multi-year, nationwide thought leadership campaign reframing saved energy as the "sixth fuel". Highlighting the value of preventing energy loss, especially through effective insulation, as a practical solution for environmental, economic, and social benefits.</p>
+<h4>Area</h4>
+<p>Thought Leadership Campaign</p>
+<h4>Key activities included:</h4>
+<ul>
+<li>Designing and delivering an educational program that positioned energy saving through loss prevention (e.g. proper insulation) as the most effective and accessible way to reduce costs and emissions — targeting both homeowners and public sector stakeholders</li>
+<li>Producing high-impact reports and public opinion research, and organizing university competitions to expose the scale of energy waste, and shift perceptions around energy efficiency</li>
+<li>Running integrated communication and PR campaigns — including targeted media outreach, dedicated events for journalists, and constant presence in public debate — to amplify campaign reach and position ROCKWOOL as a trusted voice in energy transition</li>
+</ul>
+<h4>Results:</h4>
+<ul>
+<li>Over 1,000 media and online mentions generated during the campaign every year</li>
+<li>37% increase in public understanding of energy efficiency (based on pre- and post-campaign research)</li>
+<li>Green Apple Award (international recognition)</li>
+<li>EU "World You Like Challenge" nomination</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<!-- Project 7: Responsible Logistics (Text left, 3 images right)-->
+<div class="project-item light">
+<div class="container">
+<div class="split-layout">
+<div class="content-side text-left">
+<h3>Responsible Logistics Podcast &amp; Newsletter – Girteka Group</h3>
+<p>A practical content platform positioning Girteka as a credible source for sustainable logistics — built on expert interviews, regulatory know-how, and operational best practices.</p>
+<h4>Area</h4>
+<p>Thought Leadership Campaign</p>
+<h4>Key activities included:</h4>
+<ul>
+<li>Launching an in-house podcast and editorial newsletter, focusing on practical and regulatory aspects of green transport (ESG, battery-electric trucks, intermodal rail, HVO100), featuring interviews with executives, NGOs, policy experts, and technology partners</li>
+<li>Integrating the content program with Girteka's Alternative Fuel Program, sustainability sales toolkit, and overall Responsible Logistics brand positioning to maximize commercial relevance and operational impact</li>
+<li>Promoting episodes and key insights across owned, earned, and paid channels, using analytics to refine messaging and drive audience growth</li>
+</ul>
+<h4>Results:</h4>
+<ul>
+<li>Over 21,000 newsletter subscribers with a consistent 40% open rate</li>
+<li>250,000+ podcast video views across distribution platforms</li>
+<li>Directly generated commercial interest, resulting in 10+ battery-electric vehicle pilot and sales projects</li>
+</ul>
+</div>
+<div class="image-side">
+<div class="multi-image-container">
+<img alt="Responsible Logistics Podcast Visual 1" class="multi-image image-1" height="300" loading="lazy" src="images/responsible1.jpg" width="400"/>
+<img alt="Responsible Logistics Podcast Visual 2" class="multi-image image-2" height="300" loading="lazy" src="images/responsible2.jpg" width="400"/>
+<img alt="Responsible Logistics Podcast Visual 3" class="multi-image image-3" height="300" loading="lazy" src="images/responsible3.jpg" width="400"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Education & Skills as slider -->
+<section class="education-skills-section" id="education">
+<div class="container">
+<h2>Education &amp; Skills</h2>
+<div class="statement-slider">
+<div class="statement-track">
+<div class="statement-slide">
+<h3>Education</h3>
+<ul>
+<li>Competing in the Age of AI | Harvard Business School</li>
+<li>Media Crisis Masterclass</li>
+<li>Environmental Management | University of Warsaw</li>
+<li>Marketing and Management | University of Zielona Góra</li>
+</ul>
+</div>
+<div class="statement-slide">
+<h3>Technical Skills</h3>
+<ul>
+<li>Gen‑AI platforms (ChatGPT, Perplexity, ElevenLabs, Cursor, Gemini, Notebook LM, Midjourney, Heygen, Kling, Sora, Claude)</li>
+<li>CRM and Marketing Platforms (Office, GetResponse, MailChimp, Marketo, MS Dynamics)</li>
+<li>CMS, SAP, Brandwatch, Talkwalker, Agility PR, Adobe CS</li>
+<li>Social Media Management tools (Hootsuite, Buffer, Sprout Social, LinkedIn, Facebook, Instagram)</li>
+</ul>
+</div>
+<div class="statement-slide">
+<h3>Methodologies</h3>
+<ul>
+<li>Agile</li>
+<li>BPMN (Business Process Model and Notation)</li>
+<li>Design Thinking</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="slider-controls">
+<button class="slider-button prev-button">←</button>
+<button class="slider-button next-button">→</button>
+</div>
+</div>
+</section>
+<!-- Contact Section -->
+<footer id="contact">
+<div class="container">
+<h2>Let's talk.</h2>
+<p>If you want to discuss a project, explore collaboration, or just get to know me.<br/>
+            Drop me a mail, call, or schedule an introduction meeting.</p>
+<div class="contact-details">
+<div class="contact-item">
+<p>✉️ <a href="mailto:info@tomaszweber.com">info@tomaszweber.com</a>    📞 <a href="tel:+48693409483">+48 693 409 483</a>    <img height="10" src="images/LinkedIn_icon.svg" width="10"/> <a href="https://linkedin.com/in/tomasz-weber" rel="noopener noreferrer" target="_blank">LinkedIn</a>    <svg height="10" width="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg> <a href="https://github.com/tomekweber-eng" rel="noopener noreferrer" target="_blank">GitHub</a></p>
+</div>
+<div class="contact-item">
+<p style="margin-top: 25px; text-align: center;"><strong><a href="https://calendly.com/tomek-weber/30min" rel="noopener noreferrer" target="_blank">Book a 30-minute initial meeting</a></strong></p>
+</div>
+</div>
+<div class="copyright">
+<p>© 2025 Tomasz Weber. All rights reserved.</p>
+</div>
+</div>
+</footer>
+<script>
+        // Enhanced fade-in animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const fadeElements = document.querySelectorAll('.project-item, .statement-slide, .image-side, .content-side, .multi-image');
+            
+            const fadeInOptions = {
+                threshold: 0.15,
+                rootMargin: "0px 0px -100px 0px"
+            };
+            
+            const fadeInObserver = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, fadeInOptions);
+            
+            fadeElements.forEach(element => {
+                element.classList.add('fade-element');
+                fadeInObserver.observe(element);
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+            
+            // Statement sliders functionality
+            const sliders = document.querySelectorAll('.statement-slider');
+            
+            sliders.forEach(slider => {
+                const track = slider.querySelector('.statement-track');
+                const originalSlides = slider.querySelectorAll('.statement-slide');
+                const prevButton = slider.parentElement.querySelector('.prev-button');
+                const nextButton = slider.parentElement.querySelector('.next-button');
+                
+                // Check if this is the Scope of Services section (first slider) or References section
+                const isFirstSlider = slider.closest('.expertise-section');
+                const isReferencesSlider = slider.closest('.education-skills-section') && slider.closest('.education-skills-section').querySelector('h2').textContent.includes('References');
+                
+                let currentIndex = 0;
+                let slides = originalSlides;
+                const slideWidth = 100; // percentage
+                
+                // For Scope of Services and References, create infinite loop by duplicating slides
+                if (isFirstSlider || isReferencesSlider) {
+                    // Clone first slide and append to end
+                    const firstSlideClone = originalSlides[0].cloneNode(true);
+                    track.appendChild(firstSlideClone);
+                    
+                    // Clone last slide and prepend to beginning
+                    const lastSlideClone = originalSlides[originalSlides.length - 1].cloneNode(true);
+                    track.insertBefore(lastSlideClone, originalSlides[0]);
+                    
+                    // Update slides reference and adjust starting position
+                    slides = track.querySelectorAll('.statement-slide');
+                    currentIndex = 1; // Start at the real first slide (after the cloned last slide)
+                }
+                
+                // Add CSS transition for smooth animations
+                track.style.transition = 'transform 0.3s ease';
+                
+                // Initialize
+                updateSlider();
+                
+                // Next button click
+                nextButton.addEventListener('click', () => {
+                    if (isFirstSlider || isReferencesSlider) {
+                        currentIndex++;
+                        updateSlider();
+                        
+                        // If we're at the cloned first slide (end), reset to real first slide
+                        if (currentIndex === slides.length - 1) {
+                            setTimeout(() => {
+                                track.style.transition = 'none';
+                                currentIndex = 1;
+                                track.style.transform = `translateX(-${currentIndex * slideWidth}%)`;
+                                setTimeout(() => {
+                                    track.style.transition = 'transform 0.3s ease';
+                                }, 10);
+                            }, 300);
+                        }
+                    } else {
+                        currentIndex = (currentIndex + 1) % slides.length;
+                        updateSlider();
+                    }
+                });
+                
+                // Previous button click
+                prevButton.addEventListener('click', () => {
+                    if (isFirstSlider || isReferencesSlider) {
+                        currentIndex--;
+                        updateSlider();
+                        
+                        // If we're at the cloned last slide (beginning), reset to real last slide
+                        if (currentIndex === 0) {
+                            setTimeout(() => {
+                                track.style.transition = 'none';
+                                currentIndex = slides.length - 2;
+                                track.style.transform = `translateX(-${currentIndex * slideWidth}%)`;
+                                setTimeout(() => {
+                                    track.style.transition = 'transform 0.3s ease';
+                                }, 10);
+                            }, 300);
+                        }
+                    } else {
+                        currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+                        updateSlider();
+                    }
+                });
+                
+                // Update slider position
+                function updateSlider() {
+                    track.style.transform = `translateX(-${currentIndex * slideWidth}%)`;
+                    
+                    // All buttons are always enabled
+                    prevButton.disabled = false;
+                    nextButton.disabled = false;
+                    
+                    // All buttons have full opacity
+                    prevButton.style.opacity = 1;
+                    nextButton.style.opacity = 1;
+                }
+                
+                // Touch events for mobile
+                let touchStartX = 0;
+                let touchEndX = 0;
+                
+                slider.addEventListener('touchstart', e => {
+                    touchStartX = e.changedTouches[0].screenX;
+                });
+                
+                slider.addEventListener('touchend', e => {
+                    touchEndX = e.changedTouches[0].screenX;
+                    handleSwipe();
+                });
+                
+                function handleSwipe() {
+                    const swipeThreshold = 50;
+                    if (touchEndX < touchStartX - swipeThreshold) {
+                        // Swipe left - next slide
+                        if (isFirstSlider || isReferencesSlider) {
+                            currentIndex++;
+                            updateSlider();
+                            
+                            // If we're at the cloned first slide (end), reset to real first slide
+                            if (currentIndex === slides.length - 1) {
+                                setTimeout(() => {
+                                    track.style.transition = 'none';
+                                    currentIndex = 1;
+                                    track.style.transform = `translateX(-${currentIndex * slideWidth}%)`;
+                                    setTimeout(() => {
+                                        track.style.transition = 'transform 0.3s ease';
+                                    }, 10);
+                                }, 300);
+                            }
+                        } else {
+                            currentIndex = (currentIndex + 1) % slides.length;
+                            updateSlider();
+                        }
+                    }
+                    
+                    if (touchEndX > touchStartX + swipeThreshold) {
+                        // Swipe right - previous slide
+                        if (isFirstSlider || isReferencesSlider) {
+                            currentIndex--;
+                            updateSlider();
+                            
+                            // If we're at the cloned last slide (beginning), reset to real last slide
+                            if (currentIndex === 0) {
+                                setTimeout(() => {
+                                    track.style.transition = 'none';
+                                    currentIndex = slides.length - 2;
+                                    track.style.transform = `translateX(-${currentIndex * slideWidth}%)`;
+                                    setTimeout(() => {
+                                        track.style.transition = 'transform 0.3s ease';
+                                    }, 10);
+                                }, 300);
+                            }
+                        } else {
+                            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+                            updateSlider();
+                        }
+                    }
+                }
+            });
+            
+            // Burger Menu functionality
+            const burger = document.getElementById('burgerMenu');
+            const navMenu = document.getElementById('navMenu');
+            
+            burger.addEventListener('click', () => {
+                burger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+            
+            // Close menu when clicking on a link
+            const navLinks = document.querySelectorAll('.nav-menu a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    burger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                });
+            });
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!burger.contains(e.target) && !navMenu.contains(e.target)) {
+                    burger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                }
+            });
+        });
+    </script>
+<!-- Chat Widget -->
+<div id="chat-widget-container"></div>
+
+<style>
+
+      /* Chat Widget CSS - inline to avoid loading conflicts */
+      .digital-tomek-chat-bubble {
+        position: fixed !important;
+        bottom: 20px !important;
+        right: 20px !important;
+        width: 60px !important;
+        height: 60px !important;
+        font-size: 24px !important;
+        padding: 0 !important;
+        border-radius: 50% !important;
+        background-color: #6a1b9a !important;
+        color: white !important;
+        border: none !important;
+        cursor: pointer !important;
+        z-index: 999999 !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        transform: none !important;
+        margin: 0 !important;
+        outline: none !important;
+        font-family: system-ui, -apple-system, sans-serif !important;
+      }
+
+      .digital-tomek-chat-bubble:hover {
+        background-color: #7b1fa2 !important;
+        transform: scale(1.05) !important;
+        transition: all 0.2s ease !important;
+      }
+
+      .digital-tomek-chat-box {
+        position: fixed !important;
+        bottom: 90px !important;
+        right: 20px !important;
+        width: 360px !important;
+        max-height: 80vh !important;
+        font-size: 14px !important;
+        background: white !important;
+        border: 1px solid #ccc !important;
+        border-radius: 16px !important;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        overflow: hidden !important;
+        z-index: 999998 !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        transform: none !important;
+        margin: 0 !important;
+        font-family: system-ui, -apple-system, sans-serif !important;
+      }
+
+      .digital-tomek-chat-box.hidden {
+        display: none !important;
+      }
+
+      .digital-tomek-chat-header {
+        background-color: #6a1b9a !important;
+        color: white !important;
+        padding: 12px !important;
+        font-weight: bold !important;
+        text-align: center !important;
+        border-radius: 16px 16px 0 0 !important;
+        font-size: 14px !important;
+        margin: 0 !important;
+      }
+
+      .digital-tomek-chat-options {
+        padding: 10px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 8px !important;
+        margin-bottom: 4px !important;
+        background: white !important;
+      }
+
+      .digital-tomek-chat-option {
+        font-size: 14px !important;
+        background: #edd9fa !important;
+        border: none !important;
+        border-radius: 12px !important;
+        padding: 10px 12px !important;
+        cursor: pointer !important;
+        text-align: left !important;
+        font-weight: 500 !important;
+        color: #4a0065 !important;
+        transition: background 0.2s ease !important;
+        margin: 0 !important;
+        font-family: inherit !important;
+        line-height: 1.3 !important;
+      }
+
+      .digital-tomek-chat-option:hover {
+        background: #dec5f0 !important;
+      }
+
+      .digital-tomek-chat-messages {
+        padding: 10px !important;
+        flex-grow: 1 !important;
+        overflow-y: auto !important;
+        background: #f8f9fa !important;
+        min-height: 200px !important;
+        max-height: 300px !important;
+        margin: 0 !important;
+      }
+
+      .digital-tomek-message {
+        font-size: 14px !important;
+        margin: 6px 0 !important;
+        padding: 8px 10px !important;
+        border-radius: 12px !important;
+        line-height: 1.4 !important;
+        max-width: 85% !important;
+        word-wrap: break-word !important;
+        font-family: inherit !important;
+      }
+
+      .digital-tomek-message.user {
+        background: #e6d4f5 !important;
+        color: #4a0065 !important;
+        color: white !important;
+        margin-left: auto !important;
+        margin-right: 0 !important;
+        text-align: right !important;
+      }
+
+      .digital-tomek-message.bot {
+        background: white !important;
+        color: #333 !important;
+        border: 1px solid #e0e0e0 !important;
+        margin-right: auto !important;
+        margin-left: 0 !important;
+        display: flex !important;
+        align-items: flex-start !important;
+        gap: 8px !important;
+      }
+
+      .digital-tomek-message.bot img.lucy-avatar {
+        width: 32px !important;
+        height: 32px !important;
+        border-radius: 50% !important;
+        object-fit: cover !important;
+        flex-shrink: 0 !important;
+        margin-top: 2px !important;
+      }
+
+      .digital-tomek-message.bot.typing {
+        background: transparent !important;
+        border: none !important;
+        padding: 4px 10px !important;
+      }
+
+      .digital-tomek-chat-input {
+        display: flex !important;
+        gap: 8px !important;
+        border-top: 1px solid #e0e0e0 !important;
+        padding: 10px !important;
+        background: white !important;
+        margin: 0 !important;
+      }
+
+      .digital-tomek-chat-input input {
+        flex-grow: 1 !important;
+        padding: 10px 12px !important;
+        font-size: 14px !important;
+        border: 1px solid #ccc !important;
+        border-radius: 20px !important;
+        outline: none !important;
+        margin: 0 !important;
+        font-family: inherit !important;
+      }
+
+      .digital-tomek-chat-input input:focus {
+        border-color: #6a1b9a !important;
+        box-shadow: 0 0 0 2px rgba(106, 27, 154, 0.1) !important;
+      }
+
+      .digital-tomek-chat-input button {
+        background: #7b1fa2 !important;
+        color: white !important;
+        border: none !important;
+        padding: 10px 16px !important;
+        border-radius: 20px !important;
+        cursor: pointer !important;
+        font-weight: bold !important;
+        font-size: 14px !important;
+        margin: 0 !important;
+        font-family: inherit !important;
+        transition: background 0.2s ease !important;
+      }
+
+      .digital-tomek-chat-input button:hover {
+        background: #5E28AD !important;
+      }
+
+      .digital-tomek-chat-footer {
+        text-align: center !important;
+        font-size: 14px !important;
+        padding: 8px !important;
+        background: #f8f9fa !important;
+        margin: 0 !important;
+        border-radius: 0 0 16px 16px !important;
+      }
+
+      .digital-tomek-chat-footer a {
+        color: #6a1b9a !important;
+        text-decoration: none !important;
+        font-weight: 500 !important;
+        padding: 4px 8px !important;
+        border-radius: 12px !important;
+        transition: background 0.2s ease !important;
+      }
+
+      .digital-tomek-chat-footer a:hover {
+        background: #edd9fa !important;
+        text-decoration: none !important;
+      }
+
+      /* Typing animation */
+      .digital-tomek-typing {
+        display: flex !important;
+        align-items: center !important;
+        gap: 3px !important;
+        padding-left: 8px !important;
+      }
+
+      .digital-tomek-typing span {
+        display: inline-block !important;
+        font-size: 18px !important;
+        animation: digital-tomek-blink 1.4s infinite both !important;
+        color: #6a1b9a !important;
+      }
+
+      .digital-tomek-typing span:nth-child(2) {
+        animation-delay: 0.2s !important;
+      }
+      .digital-tomek-typing span:nth-child(3) {
+        animation-delay: 0.4s !important;
+      }
+
+      @keyframes digital-tomek-blink {
+        0%, 20% { opacity: 0; }
+        50% { opacity: 1; }
+        100% { opacity: 0; }
+      }
+
+      /* Mobile responsiveness */
+      @media (max-width: 480px) {
+        .digital-tomek-chat-box {
+          width: calc(100vw - 40px) !important;
+          right: 20px !important;
+          left: 20px !important;
+          bottom: 80px !important;
+        }
+      }
+    
+
+#chat-widget-container .digital-tomek-message {
+    font-size: 14px !important;
+}
+
+#chat-widget-container .digital-tomek-message.user {
+    font-size: 14px !important;
+    background-color: #e6d4f5 !important;
+    color: #4a0065 !important;
+}
+
+#chat-widget-container *,
+.digital-tomek-chat-box *,
+.digital-tomek-message,
+.digital-tomek-chat-input input,
+.digital-tomek-chat-input button,
+.digital-tomek-chat-option,
+.digital-tomek-chat-footer {
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  font-family: 'Inter', sans-serif !important;
+}
+
+#chat-widget-container .digital-tomek-message {
+  font-size: 14px !important;
+  padding: 8px 10px !important;
+}
+
+#chat-widget-container .digital-tomek-message.user {
+  font-size: 14px !important;
+  background-color: #e6d4f5 !important;
+  color: #4a0065 !important;
+}
+</style>
+<script>
+
+      // Digital Tomek Chat Widget - Inline version
+      (function() {
+        'use strict';
+        
+        function initChatWidget() {
+          console.log("Digital Tomek chat widget initializing...");
+          
+          // Check if widget already exists
+          if (document.querySelector('.digital-tomek-chat-bubble')) {
+            console.log("Chat widget already exists, skipping initialization");
+            return;
+          }
+          
+          // Create bubble button
+          const bubbleBtn = document.createElement("button");
+          bubbleBtn.innerHTML = "💬";
+          bubbleBtn.className = "digital-tomek-chat-bubble";
+          bubbleBtn.setAttribute('aria-label', 'Open chat with Digital Tomek');
+          
+          // Create chat box
+          const chatBox = document.createElement("div");
+          chatBox.className = "digital-tomek-chat-box hidden";
+          chatBox.innerHTML = `
+            <div class="digital-tomek-chat-header">Lucy - AI Assistant</div>
+            <div class="digital-tomek-chat-messages" id="digital-tomek-chat-messages">
+              <div class="digital-tomek-message bot">
+                <img src="images/lucy-avatar.png" class="lucy-avatar" alt="Lucy Avatar">
+                <div><p style="margin: 0 0 8px 0; font-size:14px !important;">Hi, I'm <strong>Lucy</strong> – an AI assistant built to help you explore Tomasz Weber's work, services, and ideas.</p><p style="margin: 0 0 8px 0; font-size:14px !important;">I'm still learning, and while I do my best to answer clearly, I might occasionally hallucinate 🌀 – so treat me like a friendly guide, not an oracle.</p></div>
+              </div>
+            </div>
+            
+            <div class="digital-tomek-chat-input">
+              <input type="text" id="digital-tomek-chat-input-field" placeholder="Type your message..." />
+              <button id="digital-tomek-chat-send">Send</button>
+            </div>
+            <div class="digital-tomek-chat-footer">
+              <a href="https://calendly.com/tomek-weber/30min" target="_blank" rel="noopener">📅 Book a meeting</a>
+            </div>
+          `;
+          
+          // Add elements to body
+          document.body.appendChild(bubbleBtn);
+          document.body.appendChild(chatBox);
+          console.log("Chat widget elements added to DOM");
+          
+          // Get references
+          const sendBtn = chatBox.querySelector("#digital-tomek-chat-send");
+          const inputField = chatBox.querySelector("#digital-tomek-chat-input-field");
+          const messagesContainer = chatBox.querySelector("#digital-tomek-chat-messages");
+          
+          
+          // Toggle chat function
+          bubbleBtn.addEventListener("click", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log("Chat bubble clicked");
+            chatBox.classList.toggle("hidden");
+          });
+          
+          // Close chat when clicking outside
+          document.addEventListener("click", function(e) {
+            if (!chatBox.contains(e.target) && !bubbleBtn.contains(e.target)) {
+              chatBox.classList.add("hidden");
+            }
+          });
+          
+          // Helper functions
+          function appendMessage(sender, text) {
+            const msg = document.createElement("div");
+            msg.className = `digital-tomek-message ${sender}`;
+            msg.style.fontSize = "14px";
+            
+            if (sender === "bot") {
+              msg.innerHTML = `
+                <img src="images/lucy-avatar.png" class="lucy-avatar" alt="Lucy Avatar">
+                <div>${text.split('\n\n').map(p => `<p style="margin: 0 0 8px 0; font-size:14px !important;">${p.trim()}</p>`).join('')}</div>
+              `;
+            } else {
+              msg.innerHTML = text.split('\n\n').map(p => `<p style="margin: 0 0 8px 0; font-size:14px !important;">${p.trim()}</p>`).join('');
+            }
+            
+            messagesContainer.appendChild(msg);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+          }
+          
+          function appendTypingIndicator() {
+            const typing = document.createElement("div");
+            typing.className = "digital-tomek-message bot typing";
+        typing.style.fontSize = "14px";
+            typing.id = "digital-tomek-typing-indicator";
+            typing.innerHTML = `
+              <img src="images/lucy-avatar.png" class="lucy-avatar" alt="Lucy Avatar">
+              <div class="digital-tomek-typing"><span>●</span><span>●</span><span>●</span></div>
+            `;
+            messagesContainer.appendChild(typing);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+          }
+          
+          function removeTypingIndicator() {
+            const typing = document.getElementById("digital-tomek-typing-indicator");
+            if (typing) typing.remove();
+          }
+          
+          async function sendMessage(userInput) {
+            appendMessage("user", userInput);
+            appendTypingIndicator();
+
+            try {
+              const response = await fetch("https://digital-tomek.vercel.app/api/chat", {
+                method: "POST",
+                headers: { 
+                  "Content-Type": "application/json",
+                  "Accept": "application/json"
+                },
+                body: JSON.stringify({ message: userInput })
+              });
+
+              if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+              }
+
+              const data = await response.json();
+              removeTypingIndicator();
+              appendMessage("bot", data.reply || "Sorry, I couldn't understand that. Please try rephrasing your question.");
+            } catch (error) {
+              console.error("API Error:", error);
+              removeTypingIndicator();
+              appendMessage("bot", "I'm having trouble connecting right now. Please try again in a moment or feel free to book a meeting directly with Tomek.");
+            }
+          }
+          
+          
+          
+          // Send button click
+          sendBtn.addEventListener("click", async function(e) {
+            e.preventDefault();
+            const userInput = inputField.value.trim();
+            if (!userInput) return;
+            inputField.value = "";
+            await sendMessage(userInput);
+          });
+          
+          // Enter key in input
+          inputField.addEventListener("keypress", function(e) {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              sendBtn.click();
+            }
+          });
+          
+          console.log("Digital Tomek chat widget loaded successfully!");
+        }
+        
+        // Initialize when DOM is ready
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', initChatWidget);
+        } else {
+          initChatWidget();
+        }
+        
+        // Fallback - initialize after a short delay
+        setTimeout(initChatWidget, 1000);
+      })();
+    
+</script>
+<style>
+    #chat-widget-container .digital-tomek-chat-box,
+    #chat-widget-container .digital-tomek-chat-box * {
+      font-size: 14px !important;
+      line-height: 1.6 !important;
+      font-family: 'Inter', sans-serif !important;
+    }
+  
+    #chat-widget-container .digital-tomek-message,
+    #chat-widget-container .digital-tomek-chat-input input,
+    #chat-widget-container .digital-tomek-chat-input button,
+    #chat-widget-container .digital-tomek-chat-footer,
+    #chat-widget-container .digital-tomek-chat-header {
+      font-size: 14px !important;
+    }
+  </style>
+</body>
+</html>

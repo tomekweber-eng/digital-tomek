@@ -1,0 +1,161 @@
+/* Slider styles for Expertise and Education sections */
+.statement-slider {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    margin: 3rem 0;
+}
+
+.statement-track {
+    display: flex;
+    transition: transform 0.5s ease;
+    width: 100%;
+}
+
+.statement-slide {
+    min-width: 100%;
+    padding: 0 2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.statement-slide h3 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    position: relative;
+    display: inline-block;
+}
+
+.statement-slide h3:after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 2px;
+    background-color: currentColor;
+}
+
+.expertise-section .statement-slide h3:after {
+    background-color: #fff;
+}
+
+.statement-slide p, 
+.statement-slide ul {
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.expertise-section .statement-slide p {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.slider-controls {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.slider-button {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1.5rem;
+}
+
+.expertise-section .slider-button {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.expertise-section .slider-button:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+.education-skills-section .slider-button {
+    background-color: rgba(42, 14, 60, 0.2); /* Royal Aubergine with opacity */
+    color: #2A0E3C;
+}
+
+.education-skills-section .slider-button:hover {
+    background-color: rgba(42, 14, 60, 0.4);
+}
+
+.slider-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Slider progress indicator */
+.slider-progress {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+}
+
+.progress-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+.expertise-section .progress-dot.active {
+    background-color: #fff;
+    transform: scale(1.2);
+}
+
+.education-skills-section .progress-dot {
+    background-color: rgba(42, 14, 60, 0.3);
+}
+
+.education-skills-section .progress-dot.active {
+    background-color: #2A0E3C;
+    transform: scale(1.2);
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .statement-slide h3 {
+        font-size: 1.6rem;
+    }
+    
+    .statement-slide p,
+    .statement-slide ul {
+        font-size: 1rem;
+    }
+    
+    .slider-button {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .statement-slide h3 {
+        font-size: 1.4rem;
+    }
+    
+    .statement-slide p,
+    .statement-slide ul {
+        font-size: 0.9rem;
+    }
+}
