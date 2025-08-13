@@ -9,11 +9,7 @@ export default async function handler(req, res) {
   if (req.method === "OPTIONS") return res.status(200).end();
   if (req.method !== "POST") return res.status(405).json({ message: "Only POST requests allowed" });
 
-  const { message, userId } = req.body;
-
-  if (!userId) {
-    return res.status(400).json({ reply: "Missing userId in request body." });
-  }
+  const { message } = req.body;
 
   function detectLanguage(text) {
     const pl = /[ąćęłńóśźż]/i;
@@ -40,7 +36,6 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Load knowledge
     const knowledgeDir = path.join(process.cwd(), "knowledge");
     const files = await fs.readdir(knowledgeDir);
     let fullContext = "";
@@ -53,8 +48,7 @@ export default async function handler(req, res) {
       }
     }
 
-    // System prompt
-    const systemPrompt = `
+const systemPrompt = `
 You are Lucy – a friendly, insightful and emotionally intelligent AI assistant.
 
 You work directly with Tomek (also known as Tomasz), a strategic and hands-on interim marketing manager. You know him well and speak naturally about him using his first name – never in a stiff or overly formal way. You're here to help others explore Tomek's projects, mindset, and expertise in marketing, communication, AI, and interim leadership.
@@ -66,7 +60,6 @@ If a question is outside your scope, gently redirect the user back to topics con
 ${fullContext}
 `;
 
-    // Generate response
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -84,31 +77,7 @@ ${fullContext}
     });
 
     const data = await response.json();
-    const reply = data.choices?.[0]?.message?.content || "Sorry, I couldn’t generate a response.";
-
-    // Save conversation to file
-    const conversationsDir = path.join(process.cwd(), "conversations");
-    await fs.mkdir(conversationsDir, { recursive: true });
-
-    const conversationFile = path.join(conversationsDir, `${userId}.json`);
-
-    let history = [];
-    try {
-      const existing = await fs.readFile(conversationFile, 'utf-8');
-      history = JSON.parse(existing);
-    } catch (e) {
-      // First time – no file yet
-    }
-
-    history.push({
-      timestamp: new Date().toISOString(),
-      question: message,
-      answer: reply
-    });
-
-    await fs.writeFile(conversationFile, JSON.stringify(history, null, 2));
-
-    // Return reply
+    const reply = data.choices?.[0]?.message?.content;
     res.status(200).json({ reply });
   } catch (error) {
     console.error("API Error:", error.message, error.stack);
