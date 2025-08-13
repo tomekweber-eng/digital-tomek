@@ -86,28 +86,28 @@ ${fullContext}
     const data = await response.json();
     const reply = data.choices?.[0]?.message?.content || "Sorry, I couldn’t generate a response.";
 
-    // Save conversation to file
-    const conversationsDir = path.join(process.cwd(), "conversations");
-    await fs.mkdir(conversationsDir, { recursive: true });
+    // Save conversation to file by userId and date
+const date = new Date().toISOString().split("T")[0];
+const userDir = path.join(process.cwd(), "conversations", userId);
+const filePath = path.join(userDir, `${date}.json`);
 
-    const conversationFile = path.join(conversationsDir, `${userId}.json`);
+await fs.mkdir(userDir, { recursive: true });
 
-    let history = [];
-    try {
-      const existing = await fs.readFile(conversationFile, 'utf-8');
-      history = JSON.parse(existing);
-    } catch (e) {
-      // First time – no file yet
-    }
+let existingData = [];
+try {
+  const raw = await fs.readFile(filePath, 'utf-8');
+  existingData = JSON.parse(raw);
+} catch (err) {
+  // No previous file
+}
 
-    history.push({
-      timestamp: new Date().toISOString(),
-      question: message,
-      answer: reply
-    });
+existingData.push({
+  timestamp: new Date().toISOString(),
+  question: message,
+  answer: reply
+});
 
-    await fs.writeFile(conversationFile, JSON.stringify(history, null, 2));
-
+await fs.writeFile(filePath, JSON.stringify(existingData, null, 2));
     // Return reply
     res.status(200).json({ reply });
   } catch (error) {
