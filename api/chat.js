@@ -80,6 +80,12 @@ ${fullContext}
 
     const data = await response.json();
     const reply = data.choices?.[0]?.message?.content;
+    if (!reply || reply.trim() === "") {
+      return res.status(200).json({
+        reply: "Sorry, I'm having trouble finding an answer. Would you like to book a meeting instead?",
+        fallback: true
+      });
+    }
     res.status(200).json({ reply });
   } catch (error) {
     console.error("API Error:", error.message, error.stack);
