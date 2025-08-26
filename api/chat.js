@@ -57,7 +57,7 @@ ${context}
           { role: "system", content: systemPrompt },
           { role: "user", content: message }
         ],
-        temperature: 0.4
+        temperature: 0.6
       })
     });
 
