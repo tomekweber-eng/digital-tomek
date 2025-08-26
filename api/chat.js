@@ -11,6 +11,7 @@ export default async function handler(req, res) {
 
   const { message } = req.body;
 
+  // Język detekcji
   function detectLanguage(text) {
     const pl = /[ąćęłńóśźż]/i;
     const fr = /\b(je|le|la|les|est|vous|tu|bonjour)\b/i;
@@ -37,13 +38,15 @@ export default async function handler(req, res) {
 
   try {
     const knowledgeDir = path.join(process.cwd(), "knowledge");
-
-    // ✅ Deklarujemy context poprawnie
+    const files = await fs.readdir(knowledgeDir);
     let context = "";
 
-    // ✅ Ładujemy konkretny plik
-    const content = await fs.readFile(path.join(knowledgeDir, "digital_tomek_profile.json"), "utf-8");
-    context += "\n" + content;
+    for (const file of files) {
+      if (file.endsWith(".json")) {
+        const content = await fs.readFile(path.join(knowledgeDir, file), "utf-8");
+        context += `\n\n---\n📁 ${file}\n${content}`;
+      }
+    }
 
     const systemPrompt = `
 You are Lucy – Tomek's AI assistant.
