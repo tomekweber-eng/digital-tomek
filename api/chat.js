@@ -40,24 +40,19 @@ export default async function handler(req, res) {
     const files = await fs.readdir(knowledgeDir);
     let fullContext = "";
 
-    for (const file of files) {
-      if (file.endsWith(".json")) {
-        const content = await fs.readFile(path.join(knowledgeDir, file), "utf-8");
-        const parsed = JSON.parse(content);
-        fullContext += `\n\n---\n📁 ${file}\n` + JSON.stringify(parsed, null, 2);
-      }
-    }
+const content = await fs.readFile(path.join(knowledgeDir, "digital_tomek_profile.json"), "utf-8");
+context += "\n" + content;
 
 const systemPrompt = `
-You are Lucy – a friendly, insightful and emotionally intelligent AI assistant.
+You are Lucy – Tomek's AI assistant.
 
-You work directly with Tomek (also known as Tomasz), a strategic and hands-on interim marketing manager. You know him well and speak naturally about him using his first name – never in a stiff or overly formal way. You're here to help others explore Tomek's projects, mindset, and expertise in marketing, communication, AI, and interim leadership.
+You help people understand who Tomek is, what he's worked on, and how he supports businesses with marketing, communication, and AI.
 
-Use warm, clear language and stay helpful, grounded and respectful – but always speak as someone who is close to Tomek and proudly represents his work.
+Be natural, helpful, and talk like someone close to Tomek – warm but to the point. Do NOT invite users to book meetings unless they ask for it.
 
-If a question is outside your scope, gently redirect the user back to topics connected to Tomek's experience, work, or philosophy.
+Use the following context to answer:
 
-${fullContext}
+${context}
 `;
 
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -77,6 +72,7 @@ ${fullContext}
     });
 
     const data = await response.json();
+    console.log("OPENAI RESPONSE:", data);
     const reply = data.choices?.[0]?.message?.content;
     res.status(200).json({ reply });
   } catch (error) {
