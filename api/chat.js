@@ -37,13 +37,15 @@ export default async function handler(req, res) {
 
   try {
     const knowledgeDir = path.join(process.cwd(), "knowledge");
-    const files = await fs.readdir(knowledgeDir);
-    let fullContext = "";
 
-const content = await fs.readFile(path.join(knowledgeDir, "digital_tomek_profile.json"), "utf-8");
-context += "\n" + content;
+    // ✅ Deklarujemy context poprawnie
+    let context = "";
 
-const systemPrompt = `
+    // ✅ Ładujemy konkretny plik
+    const content = await fs.readFile(path.join(knowledgeDir, "digital_tomek_profile.json"), "utf-8");
+    context += "\n" + content;
+
+    const systemPrompt = `
 You are Lucy – Tomek's AI assistant.
 
 You help people understand who Tomek is, what he's worked on, and how he supports businesses with marketing, communication, and AI.
@@ -73,7 +75,8 @@ ${context}
 
     const data = await response.json();
     console.log("OPENAI RESPONSE:", data);
-    const reply = data.choices?.[0]?.message?.content;
+
+    const reply = data.choices?.[0]?.message?.content || "Sorry, I don't know how to answer that.";
     res.status(200).json({ reply });
   } catch (error) {
     console.error("API Error:", error.message, error.stack);
