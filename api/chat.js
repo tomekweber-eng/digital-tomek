@@ -84,7 +84,7 @@ ${context}
     // Anonimowe logowanie pytań do analizy
     try {
       const date = new Date().toISOString().split("T")[0];
-      const logDir = path.join(process.cwd(), "conversations");
+      const logDir = path.join('/home/użytkownik_nazwa/public_html/conversations');
       const logPath = path.join(logDir, `${date}.json`);
 
       await fs.mkdir(logDir, { recursive: true });
