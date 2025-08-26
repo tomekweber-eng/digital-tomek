@@ -9,11 +9,7 @@ export default async function handler(req, res) {
   if (req.method === "OPTIONS") return res.status(200).end();
   if (req.method !== "POST") return res.status(405).json({ message: "Only POST requests allowed" });
 
-  const { message, userId } = req.body;
-
-  if (!userId) {
-    return res.status(400).json({ reply: "Missing userId in request body." });
-  }
+  const { message } = req.body;
 
   function detectLanguage(text) {
     const pl = /[ąćęłńóśźż]/i;
@@ -61,11 +57,6 @@ Use warm, clear language and stay helpful, grounded and respectful – but alway
 
 If a question is outside your scope, gently redirect the user back to topics connected to Tomek's experience, work, or philosophy.
 
-Always remember: "Tomek" and "Tomasz" refer to the same person. "Tomek" is the friendly, everyday version, while "Tomasz" is the full formal name. You can use "Tomek" in most cases.
-
-If you don't know the answer, say you're not sure – or ask a clarifying question.
-Only suggest a meeting if the user seems unsure, confused, or wants a recommendation.
-
 ${fullContext}
 `;
 
@@ -87,36 +78,6 @@ ${fullContext}
 
     const data = await response.json();
     const reply = data.choices?.[0]?.message?.content;
-    if (!reply || reply.trim() === "") {
-      return res.status(200).json({
-        reply: "Sorry, I'm having trouble finding an answer. Would you like to book a meeting instead?",
-        fallback: true
-      });
-    }
-
-    // Save conversation history
-    const date = new Date().toISOString().split("T")[0];
-    const userDir = path.join(process.cwd(), "conversations", userId);
-    const filePath = path.join(userDir, `${date}.json`);
-
-    await fs.mkdir(userDir, { recursive: true });
-
-    let history = [];
-    try {
-      const existing = await fs.readFile(filePath, 'utf-8');
-      history = JSON.parse(existing);
-    } catch (e) {
-      // No file yet – start fresh
-    }
-
-    history.push({
-      timestamp: new Date().toISOString(),
-      question: message,
-      answer: reply
-    });
-
-    await fs.writeFile(filePath, JSON.stringify(history, null, 2));
-
     res.status(200).json({ reply });
   } catch (error) {
     console.error("API Error:", error.message, error.stack);
