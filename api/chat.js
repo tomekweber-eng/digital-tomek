@@ -111,6 +111,22 @@ ${context}
     }
 
     res.status(200).json({ reply });
+
+    // Wysyłanie logów do zewnętrznego serwera
+    try {
+      await fetch("https://tomaszweber.com/api/log-history.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          question: message,
+          answer: reply,
+          timestamp: new Date().toISOString()
+        })
+      });
+    } catch (logErr) {
+      console.error("Log to server failed:", logErr);
+    }
+
   } catch (error) {
     console.error("API Error:", error.message, error.stack);
     res.status(500).json({ reply: "Server error occurred." });
