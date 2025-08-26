@@ -80,6 +80,36 @@ ${context}
     console.log("OPENAI RESPONSE:", data);
 
     const reply = data.choices?.[0]?.message?.content || "Sorry, I don't know how to answer that.";
+
+    // Anonimowe logowanie pytań do analizy
+    try {
+      const date = new Date().toISOString().split("T")[0];
+      const logDir = path.join(process.cwd(), "conversations");
+      const logPath = path.join(logDir, `${date}.json`);
+
+      await fs.mkdir(logDir, { recursive: true });
+
+      let logs = [];
+      try {
+        const existing = await fs.readFile(logPath, 'utf-8');
+        logs = JSON.parse(existing);
+      } catch (e) {
+        // Brak pliku - zaczynamy od nowa
+      }
+
+      logs.push({
+        timestamp: new Date().toISOString(),
+        question: message,
+        answer: reply,
+        language: lang
+      });
+
+      await fs.writeFile(logPath, JSON.stringify(logs, null, 2));
+    } catch (logError) {
+      console.error("Error saving log:", logError);
+      // Nie przerywamy działania API jeśli logowanie się nie powiedzie
+    }
+
     res.status(200).json({ reply });
   } catch (error) {
     console.error("API Error:", error.message, error.stack);
