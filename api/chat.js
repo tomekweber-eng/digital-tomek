@@ -104,28 +104,29 @@ ${context}
         language: lang
       });
 
+      // Opcja hybrydowa: zapis do lokalnego pliku + wysyłka na serwer
       await fs.writeFile(logPath, JSON.stringify(logs, null, 2));
+
+      try {
+        await fetch("https://tomaszweber.com/api/log-history.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            timestamp: new Date().toISOString(),
+            question: message,
+            answer: reply,
+            language: lang
+          })
+        });
+      } catch (serverLogError) {
+        console.error("Server log failed:", serverLogError);
+      }
     } catch (logError) {
       console.error("Error saving log:", logError);
       // Nie przerywamy działania API jeśli logowanie się nie powiedzie
     }
 
     res.status(200).json({ reply });
-
-    // Wysyłanie logów do zewnętrznego serwera
-    try {
-      await fetch("https://tomaszweber.com/api/log-history.php", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          question: message,
-          answer: reply,
-          timestamp: new Date().toISOString()
-        })
-      });
-    } catch (logErr) {
-      console.error("Log to server failed:", logErr);
-    }
 
   } catch (error) {
     console.error("API Error:", error.message, error.stack);
