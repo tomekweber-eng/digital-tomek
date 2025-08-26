@@ -9,7 +9,11 @@ export default async function handler(req, res) {
   if (req.method === "OPTIONS") return res.status(200).end();
   if (req.method !== "POST") return res.status(405).json({ message: "Only POST requests allowed" });
 
-  const { message } = req.body;
+  const { message, userId } = req.body;
+
+  if (!userId) {
+    return res.status(400).json({ reply: "Missing userId in request body." });
+  }
 
   function detectLanguage(text) {
     const pl = /[ąćęłńóśźż]/i;
@@ -89,6 +93,30 @@ ${fullContext}
         fallback: true
       });
     }
+
+    // Save conversation history
+    const date = new Date().toISOString().split("T")[0];
+    const userDir = path.join(process.cwd(), "conversations", userId);
+    const filePath = path.join(userDir, `${date}.json`);
+
+    await fs.mkdir(userDir, { recursive: true });
+
+    let history = [];
+    try {
+      const existing = await fs.readFile(filePath, 'utf-8');
+      history = JSON.parse(existing);
+    } catch (e) {
+      // No file yet – start fresh
+    }
+
+    history.push({
+      timestamp: new Date().toISOString(),
+      question: message,
+      answer: reply
+    });
+
+    await fs.writeFile(filePath, JSON.stringify(history, null, 2));
+
     res.status(200).json({ reply });
   } catch (error) {
     console.error("API Error:", error.message, error.stack);
