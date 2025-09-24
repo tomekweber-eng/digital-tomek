@@ -8,7 +8,7 @@ echo "🔄 Sprawdzam status repozytorium..."
 if [ ! -d ".git" ]; then
     echo "❌ To nie jest repozytorium git. Inicjalizuję..."
     git init
-    echo "📝 Dodaj remote origin: git remote add origin https://github.com/TWOJ_USERNAME/TWOJE_REPO.git"
+    echo "📝 Dodaj remote origin: git remote add origin https://github.com/TWOJ_USERNAME/chatbot-conversations.git"
     exit 1
 fi
 

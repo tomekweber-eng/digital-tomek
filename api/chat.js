@@ -2,39 +2,16 @@ import fs from 'fs/promises';
 import path from 'path';
 
 export default async function handler(req, res) {
-<<<<<<< HEAD
-  // CORS
-  res.setHeader("Access-Control-Allow-Origin", "https://tomaszweber.com");
-  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, X-GitHub-User");
-=======
   res.setHeader("Access-Control-Allow-Origin", "https://tomaszweber.com");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
->>>>>>> 36262425bdc4fdff09785914c2b7850e81b17a65
 
   if (req.method === "OPTIONS") return res.status(200).end();
   if (req.method !== "POST") return res.status(405).json({ message: "Only POST requests allowed" });
 
   const { message } = req.body;
-<<<<<<< HEAD
-  const githubUser = req.headers['x-github-user'];
-  const isAdmin = githubUser === 'tomekweber-eng';
 
-  // Log chat interactions for GitHub-based administration
-  const logEntry = {
-    timestamp: new Date().toISOString(),
-    user: githubUser || 'anonymous',
-    message: message,
-    isAdmin: isAdmin
-  };
-
-  try {
-    // Log to GitHub (you can implement GitHub Issues API later for chat logs)
-    console.log('Chat Log:', JSON.stringify(logEntry));
-    
-=======
-
+  // Język detekcji
   function detectLanguage(text) {
     const pl = /[ąćęłńóśźż]/i;
     const fr = /\b(je|le|la|les|est|vous|tu|bonjour)\b/i;
@@ -60,44 +37,27 @@ export default async function handler(req, res) {
   }
 
   try {
->>>>>>> 36262425bdc4fdff09785914c2b7850e81b17a65
     const knowledgeDir = path.join(process.cwd(), "knowledge");
     const files = await fs.readdir(knowledgeDir);
-    let fullContext = "";
+    let context = "";
 
     for (const file of files) {
       if (file.endsWith(".json")) {
         const content = await fs.readFile(path.join(knowledgeDir, file), "utf-8");
-        const parsed = JSON.parse(content);
-        fullContext += `\n\n---\n📁 ${file}\n` + JSON.stringify(parsed, null, 2);
+        context += `\n\n---\n📁 ${file}\n${content}`;
       }
     }
 
-<<<<<<< HEAD
     const systemPrompt = `
-Jesteś Digital Tomkiem – cyfrowym asystentem Tomasza Webera.
+You are Lucy – Tomek's AI assistant.
 
-Twoim zadaniem jest odpowiadać tylko i wyłącznie na pytania dotyczące jego doświadczenia, projektów, umiejętności i oferty interim marketingowej, komunikacyjnej i AI.
+You help people understand who Tomek is, what he's worked on, and how he supports businesses with marketing, communication, and AI.
 
-${isAdmin ? 'UWAGA: Rozmawiasz z administratorem (Tomasz Weber). Możesz odpowiedzieć na dodatkowe pytania techniczne o stronę internetową i systemy.' : ''}
+Be natural, helpful, and talk like someone close to Tomek – warm but to the point. Do NOT invite users to book meetings unless they ask for it.
 
-${githubUser ? `Witaj ${githubUser}! Widzę, że jesteś zalogowany przez GitHub.` : ''}
+Use the following context to answer:
 
-Nie odpowiadaj na inne pytania – w takim przypadku napisz: "Jestem cyfrowym sobowtórem Tomasza Webera – mogę pomóc w tematach marketingu, AI, komunikacji i interim managementu".
-
-Możesz również wspomnieć o jego profilu GitHub: https://github.com/tomekweber-eng
-=======
-const systemPrompt = `
-You are Lucy – a friendly, insightful and emotionally intelligent AI assistant.
-
-You work directly with Tomek (also known as Tomasz), a strategic and hands-on interim marketing manager. You know him well and speak naturally about him using his first name – never in a stiff or overly formal way. You're here to help others explore Tomek's projects, mindset, and expertise in marketing, communication, AI, and interim leadership.
-
-Use warm, clear language and stay helpful, grounded and respectful – but always speak as someone who is close to Tomek and proudly represents his work.
-
-If a question is outside your scope, gently redirect the user back to topics connected to Tomek's experience, work, or philosophy.
->>>>>>> 36262425bdc4fdff09785914c2b7850e81b17a65
-
-${fullContext}
+${context}
 `;
 
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -117,78 +77,42 @@ ${fullContext}
     });
 
     const data = await response.json();
-    const reply = data.choices?.[0]?.message?.content;
-<<<<<<< HEAD
-    
-    // Auto-log important conversations to GitHub (if admin or notable interactions)
-    if (isAdmin || message.length > 100) {
+    console.log("OPENAI RESPONSE:", data);
+
+    const reply = data.choices?.[0]?.message?.content || "Sorry, I don't know how to answer that.";
+
+    // Anonimowe logowanie pytań do analizy
+    try {
+      const date = new Date().toISOString().split("T")[0];
+      const logDir = path.join(process.cwd(), 'conversations');
+      const logPath = path.join(logDir, `${date}.json`);
+
+      await fs.mkdir(logDir, { recursive: true });
+
+      let logs = [];
       try {
-        await logChatToGitHub({
-          timestamp: logEntry.timestamp,
-          user: githubUser || 'anonymous',
-          message: message,
-          response: reply,
-          isAdmin: isAdmin
-        });
-      } catch (logError) {
-        console.error('Chat logging error:', logError);
-        // Don't fail the request if logging fails
+        const existing = await fs.readFile(logPath, 'utf-8');
+        logs = JSON.parse(existing);
+      } catch (e) {
+        // Brak pliku - zaczynamy od nowa
       }
+
+      logs.push({
+        timestamp: new Date().toISOString(),
+        question: message,
+        answer: reply,
+        language: lang
+      });
+
+      await fs.writeFile(logPath, JSON.stringify(logs, null, 2));
+    } catch (logError) {
+      console.error("Error saving log:", logError);
+      // Nie przerywamy działania API jeśli logowanie się nie powiedzie
     }
-    
-    res.status(200).json({ reply });
-  } catch (error) {
-    console.error("API Error:", error.message, error.stack);
-    res.status(500).json({ reply: "Wystąpił błąd po stronie serwera." });
-  }
-}
 
-async function logChatToGitHub(chatData) {
-  const token = process.env.GITHUB_ACCESS_TOKEN;
-  if (!token) return; // Skip logging if no token configured
-  
-  const repo = 'tomekweber-eng/digital-tomek';
-  
-  const issueBody = `
-## Chat Log Entry
-
-**Timestamp:** ${chatData.timestamp}
-**User:** ${chatData.user}
-**Admin:** ${chatData.isAdmin ? 'Yes' : 'No'}
-
-**Message:**
-\`\`\`
-${chatData.message}
-\`\`\`
-
-**Response:**
-\`\`\`
-${chatData.response}
-\`\`\`
-
----
-*This is an automated chat log entry.*
-  `;
-
-  await fetch(`https://api.github.com/repos/${repo}/issues`, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${token}`,
-      'Accept': 'application/vnd.github.v3+json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      title: `[CHAT LOG] ${new Date().toISOString().split('T')[0]} - ${chatData.user}`,
-      body: issueBody,
-      labels: ['chat-log', 'automated']
-    }),
-  });
-}
-=======
     res.status(200).json({ reply });
   } catch (error) {
     console.error("API Error:", error.message, error.stack);
     res.status(500).json({ reply: "Server error occurred." });
   }
 }
->>>>>>> 36262425bdc4fdff09785914c2b7850e81b17a65
