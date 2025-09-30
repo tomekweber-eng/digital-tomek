@@ -102,5 +102,41 @@
       "Over 21,000 newsletter subscribers with a consistent 40% open rate",
       "250,000+ podcast video views across distribution platforms"
     ]
+  },
+  {
+    "title": "MathEddie – AI Math Tutor",
+    "description": "An AI-powered educational project designed to support 8th-grade students in preparing for their math exam. The system uses artificial intelligence to personalize tasks and learning pace to each student's needs. It serves as an alternative to traditional tutoring – always accessible, simple to use, and motivating through gamification elements.",
+    "area": "AI & EdTech, Product Development, User Experience",
+    "key_activities": [
+      "From concept to MVP and implementation – overseeing the vision, system architecture, and product development",
+      "Bridging AI technology, education, and user experience to create an effective learning tool",
+      "Designing personalized learning paths and gamification mechanics to increase student engagement",
+      "Building parent dashboard with clear insights into student progress and performance",
+      "Implementing AI-driven task adaptation based on individual learning patterns"
+    ],
+    "results": [
+      "Working MVP that supports students and provides parents with clear insights into progress",
+      "Currently in testing phase with pilot classrooms",
+      "Validating AI-driven personalization in real educational settings"
+    ],
+    "website": "https://matheddie.com"
+  },
+  {
+    "title": "Replugged – Live Rock Experience",
+    "description": "A live music project that combines a passion for rock with a modern approach to event promotion. Together with the band, I built a concert brand that not only revives the greatest classics of rock music but also creates a community of fans around local events. The project focuses on delivering a complete experience – from online promotion to the live concert atmosphere.",
+    "area": "Event Marketing, Brand Building, Community Management",
+    "key_activities": [
+      "Developing communication strategy and event marketing approach for live music events",
+      "Creating visual identity across digital channels and promotional materials",
+      "Bass playing and contributing to the live performance experience",
+      "Building and engaging a loyal fan community through consistent brand storytelling",
+      "Managing social media presence and community interactions"
+    ],
+    "results": [
+      "A series of successful concerts in key music venues",
+      "Steadily growing attendance and audience engagement at events",
+      "A loyal fan community actively participating in events and online interactions"
+    ],
+    "website": "https://replugged.pl"
   }
 ]
