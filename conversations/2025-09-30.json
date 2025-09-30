@@ -22,5 +22,11 @@
     "question": "and what about math eddie?",
     "answer": "MathEddie is an AI-powered educational project designed to support 8th-grade students in preparing for their math exams. The system uses artificial intelligence to personalize tasks and learning pace to each student's needs, serving as an alternative to traditional tutoring. It's always accessible, simple to use, and incorporates gamification elements to motivate students.\n\nTomek oversaw the project from concept to MVP and implementation, focusing on bridging AI technology, education, and user experience to create an effective learning tool. MathEddie includes personalized learning paths and gamification mechanics to increase student engagement, along with a parent dashboard that provides clear insights into student progress and performance. The project is currently in the testing phase with pilot classrooms, validating AI-driven personalization in real educational settings. You can find more information on their website: [MathEddie](https://matheddie.com).",
     "language": "en"
+  },
+  {
+    "timestamp": "2025-09-30T16:58:36.320Z",
+    "question": "tell me about matheddie",
+    "answer": "MathEddie is an AI-powered educational project designed to support 8th-grade students in preparing for their math exams. It uses artificial intelligence to personalize tasks and learning pace according to each student's needs, serving as an alternative to traditional tutoring. The platform is always accessible, simple to use, and incorporates gamification elements to motivate students.\n\nKey activities in the project include overseeing the vision, system architecture, and product development, as well as designing personalized learning paths and gamification mechanics to increase student engagement. MathEddie also provides a parent dashboard with clear insights into student progress and performance, and it implements AI-driven task adaptation based on individual learning patterns.\n\nThe project is currently in the testing phase with pilot classrooms, validating AI-driven personalization in real educational settings. You can explore MathEddie further at [https://matheddie.com](https://matheddie.com).",
+    "language": "en"
   }
 ]
