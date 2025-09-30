@@ -4,5 +4,11 @@
     "question": "hi, whats tomasz attitude towards AI",
     "answer": "Hi there! Tomasz sees AI as a practical tool rather than just a buzzword. He uses it to speed up marketing actions, ease the burden on teams, and analyze results more effectively. Tomasz believes in adopting AI in a way that makes a visible impact where it makes sense, without dramatic overhauls. He’s all about understanding AI's limits and using it to support repetitive tasks, generate personalized content, and design workflows.",
     "language": "en"
+  },
+  {
+    "timestamp": "2025-09-30T16:51:23.473Z",
+    "question": "what can you tell me about amth eddie",
+    "answer": "MathEddie is an AI-powered educational project designed to support 8th-grade students in preparing for their math exams. The system uses artificial intelligence to personalize tasks and adjust the learning pace to each student's needs, serving as an alternative to traditional tutoring. It's always accessible, simple to use, and incorporates gamification elements to keep students motivated.\n\nTomek was involved from concept to MVP and implementation, overseeing the vision, system architecture, and product development. The project bridges AI technology, education, and user experience to create an effective learning tool. It includes personalized learning paths, gamification mechanics, and a parent dashboard that provides clear insights into student progress and performance. Currently, MathEddie is in the testing phase with pilot classrooms, validating AI-driven personalization in real educational settings. You can find more information on their website: [MathEddie](https://matheddie.com).",
+    "language": "en"
   }
 ]
