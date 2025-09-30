@@ -89,14 +89,72 @@ ${context}
       language: lang
     };
 
-    // Wywołaj endpoint save-to-github w tle
-    fetch(`${process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000'}/api/save-to-github`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(conversationData)
-    }).catch(err => {
-      console.error("Failed to save conversation to GitHub:", err);
-    });
+        // Zapisz bezpośrednio do GitHub (bez dodatkowego endpointu)
+    try {
+      const date = new Date().toISOString().split("T")[0];
+      const fileName = `conversations/${date}.json`;
+      
+      const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+      const REPO_OWNER = 'tomekweber-eng';
+      const REPO_NAME = 'digital-tomek';
+      
+      if (GITHUB_TOKEN) {
+        // Pobierz istniejący plik
+        let existingContent = [];
+        let sha = null;
+        
+        try {
+          const getResponse = await fetch(
+            `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${fileName}`,
+            {
+              headers: {
+                'Authorization': `Bearer ${GITHUB_TOKEN}`,
+                'Accept': 'application/vnd.github.v3+json'
+              }
+            }
+          );
+          
+          if (getResponse.ok) {
+            const fileData = await getResponse.json();
+            sha = fileData.sha;
+            const content = Buffer.from(fileData.content, 'base64').toString('utf-8');
+            existingContent = JSON.parse(content);
+          }
+        } catch (e) {
+          console.log("File doesn't exist yet, creating new one");
+        }
+
+        // Dodaj nową konwersację
+        existingContent.push(conversationData);
+
+        // Zapisz do GitHub
+        const updatedContent = JSON.stringify(existingContent, null, 2);
+        const encodedContent = Buffer.from(updatedContent).toString('base64');
+
+        await fetch(
+          `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${fileName}`,
+          {
+            method: 'PUT',
+            headers: {
+              'Authorization': `Bearer ${GITHUB_TOKEN}`,
+              'Accept': 'application/vnd.github.v3+json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              message: `Add conversation - ${conversationData.timestamp}`,
+              content: encodedContent,
+              sha: sha || undefined
+            })
+          }
+        );
+        
+        console.log("✅ Conversation saved to GitHub:", fileName);
+      } else {
+        console.warn("⚠️ GITHUB_TOKEN not found - conversation not saved");
+      }
+    } catch (saveError) {
+      console.error("❌ Failed to save conversation to GitHub:", saveError);
+    }
 
     res.status(200).json({ reply });
   } catch (error) {
