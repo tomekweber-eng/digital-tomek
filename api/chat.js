@@ -49,7 +49,7 @@ export default async function handler(req, res) {
     }
 
     const systemPrompt = `
-You are Lucy – Tomek's AI assistant.
+You are Tomi – Tomek's digital AI avatar.
 
 You help people understand who Tomek is, what he's worked on, and how he supports businesses with marketing, communication, and AI.
 
